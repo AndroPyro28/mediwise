@@ -78,7 +78,10 @@ if (logged_in()) {
                   echo "<td>" . $row['date'] . "</td>";
                   echo "<td>" . $row['request_status'] . "</td>";
                   if($row['request_status'] === 'PENDING') {
-                    echo "<td> <button class='btn btn-info clickBtn'><i class='fas fa-check'></i></button></td>";
+                    echo "<td> 
+                    <button class='btn btn-info clickBtnAccept'>Accept</button>
+                    <button class='btn btn-info clickBtnDecline' style='background:red;'>Decline</button>
+                    </td>";
                   } else {
                     echo "<td> - </td>";
                   }
@@ -186,8 +189,9 @@ if (logged_in()) {
 
 <script>
   $(document).ready(function (e) {
+
     // Attach click event to the button with class 'clickBtn'
-    $(document).on('click', '.clickBtn', async function (e) {
+    $(document).on('click', '.clickBtnAccept', async function (e) {
       // Get the data from the clicked row
       e.preventDefault()
       var rowData = $(this).closest('tr').find('td').map(function () {
@@ -203,6 +207,7 @@ if (logged_in()) {
         method: 'PATCH',
         body: JSON.stringify({
           appointmentId: appointmentId,
+          status:'ACCEPT'
         }),
         headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -216,6 +221,38 @@ if (logged_in()) {
         window.location.reload()
       }
     });
+
+    $(document).on('click', '.clickBtnDecline', async function (e) {
+      // Get the data from the clicked row
+      e.preventDefault()
+      var rowData = $(this).closest('tr').find('td').map(function () {
+        return $(this).text();
+      }).get();
+
+      // Extract the appointment ID from the first column (index 0)
+      var appointmentId = rowData[0];
+
+      // Send an AJAX request to update the status
+      console.log(appointmentId)
+      const result = await fetch('http://localhost:3001/appointments', { // sending data to the server
+        method: 'PATCH',
+        body: JSON.stringify({
+          appointmentId: appointmentId,
+          status:'DECLINE'
+        }),
+        headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+  },
+        // body: JSON.stringify({ appointmentId }),
+        
+      })
+      
+      const data = await result.json();
+      if(result.status === 201) {
+        window.location.reload()
+      }
+    });
+
   });
 </script>
 

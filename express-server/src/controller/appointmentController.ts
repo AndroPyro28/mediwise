@@ -70,7 +70,8 @@ class AppointmentController {
 
   public updateStatus = async (req: RequestInterface, res: Response) => {
     try {
-      const {appointmentId} = req.body;
+      const {appointmentId, status} = req.body;
+      
       const prisma = new PrismaClient();
 
       if(!appointmentId) {
@@ -91,7 +92,7 @@ class AppointmentController {
           appointment_id: appointment?.appointment_id
         },
         data: {
-          request_status: "ACCEPTED"
+          request_status: status
         }
       })
 
