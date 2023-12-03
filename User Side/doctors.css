@@ -1,0 +1,40 @@
+body {
+  background: #f0f0f0;
+}
+
+.container {
+  margin-top: 100px;
+}
+
+.card-header {
+  background-color: #FFC785;
+  color: #FFC785;
+  text-align: center;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  margin-bottom: 0;
+  color: black;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.checkbox label {
+  padding-left: 0;
+}
+
+.float-right {
+  float: right;
+}

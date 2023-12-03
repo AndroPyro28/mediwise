@@ -1,0 +1,9 @@
+1. install nodeJs
+
+
+
+2.run this command step by step
+1. npm install
+2. npx prisma db push
+3. npx prisma generate
+4. npm run dev

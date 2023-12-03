@@ -1,0 +1,3 @@
+.card-success:not(.card-outline)>.card-header {
+    background-color: black;
+}

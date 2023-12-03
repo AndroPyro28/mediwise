@@ -1,0 +1,25 @@
+<?php
+            $number = '09053279299';
+            $msg =  'Hi '.$first_name.'<br>Account Info<br>Note: Dont Share to anyone<br>Contact Number : '.$contact_number.'<br>Password : '.$password;
+            $ch = curl_init();
+            $parameters = array(
+                'apikey' => '98807d6a6cb97f05b711732742b87b58', //Your API KEY
+                'number' => $number,
+                'message' => $msg,
+                'sendername' => 'Child Vaccination'
+            );
+            curl_setopt( $ch, CURLOPT_URL,'https://semaphore.co/api/v4/messages' );
+            curl_setopt( $ch, CURLOPT_POST, 1 );
+
+            //Send the parameters set above with the request
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $parameters ) );
+
+            // Receive response from server
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            $output = curl_exec( $ch );
+            curl_close ($ch);
+
+            //Show the server response
+            echo $output;
+
+            ?>
