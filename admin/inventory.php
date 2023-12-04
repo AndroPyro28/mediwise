@@ -86,6 +86,14 @@
                 <label for="quantity">Quantity:</label>
                 <input type="number" name="quantity" class="quantity" required>
                 <br>
+                <label for="barangay">Barangay</label>
+                    <select class="form-control barangay" name="barangay" class=""required>
+                    <option value=""></option>
+                    <option value="1">176</option>
+                    <option value="2">177</option>
+                    <option value="2">178</option>
+                    </select>
+                <br>
                 <button type="submit" class="addItemBtn">Add Item</button>
             </div>
         </div>
@@ -167,10 +175,12 @@
 
         const nameNode = document.querySelector('.name');
         const quantityNode = document.querySelector('.quantity');
+        const barangayNode = document.querySelector('.barangay');
 
         addItemBtn.addEventListener('click', async () => {
             const name = nameNode.value
             const quantity = quantityNode.value
+            const barangay = barangayNode.value
 
             if (!name || !quantity) {
                 return alert("name or quantity must be filled")
@@ -179,7 +189,7 @@
                 // sending data to the server
                 method: "POST",
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify({ name, quantity })
+                body: JSON.stringify({ name, quantity, barangay })
             });
 
             const data = await result.json();

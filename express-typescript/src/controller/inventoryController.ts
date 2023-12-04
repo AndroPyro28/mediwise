@@ -13,8 +13,7 @@ class InventoryController {
   public create = async (req: RequestInterface, res: Response) => {
     try {
       const prisma = new PrismaClient();
-      const { name, quantity } = req.body;
-      console.log('hello')
+      const { name, quantity, barangay } = req.body;
 
       if (!name || !quantity) {
         return res.status(400).json({
@@ -27,6 +26,7 @@ class InventoryController {
         data: {
           name,
           quantity: +quantity,
+          barangay_id: + barangay
         },
       });
 

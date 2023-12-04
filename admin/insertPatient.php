@@ -12,7 +12,7 @@ $email = $_POST['email'];
 $barangay = $_POST['barangay'];
 
     // Insert the new user
-    $sql = "INSERT INTO patient (username,password,first_name, middle_name, last_name,suffix, birthdate, contact_number,email,barangay,status)
+    $sql = "INSERT INTO patient (username,password,first_name, middle_name, last_name,suffix, birthdate, contact_number,email,barangay_id,status)
         VALUES ('$username','$password','$first_name', '$middle_name', '$last_name', '$suffix', '$birthdate', '$contact_number', '$email', '$barangay','ACTIVE')";
     $result = mysqli_query($conn, $sql);
 
