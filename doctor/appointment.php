@@ -69,7 +69,7 @@ if (logged_in()) {
                 <th nowrap>Status</th>
                 <th nowrap>Action</th>
                 </tr></thead><tbody>";
-
+  
                 while ($row = $result->fetch_assoc()) {
                   echo "<tr role='row'>";
                   echo "<td>" . $row['appointment_id'] . "</td>";
@@ -91,6 +91,11 @@ if (logged_in()) {
             </div>
           </div>
         </div>
+        <?php 
+
+        echo "<input type='hidden' id='user_id' value='$session_user_id' />"
+         
+        ?>
 </section>
 
 </form>
@@ -188,6 +193,9 @@ if (logged_in()) {
 </script>
 
 <script>
+      const user_id = document.querySelector('#user_id').value;
+
+
   $(document).ready(function (e) {
 
     // Attach click event to the button with class 'clickBtn'
@@ -200,14 +208,13 @@ if (logged_in()) {
 
       // Extract the appointment ID from the first column (index 0)
       var appointmentId = rowData[0];
-
       // Send an AJAX request to update the status
-      console.log(appointmentId)
       const result = await fetch('http://localhost:3001/appointments', { // sending data to the server
         method: 'PATCH',
         body: JSON.stringify({
           appointmentId: appointmentId,
-          status:'ACCEPT'
+          status:'ACCEPTED',
+          user_id
         }),
         headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -233,12 +240,14 @@ if (logged_in()) {
       var appointmentId = rowData[0];
 
       // Send an AJAX request to update the status
-      console.log(appointmentId)
+
+
       const result = await fetch('http://localhost:3001/appointments', { // sending data to the server
         method: 'PATCH',
         body: JSON.stringify({
           appointmentId: appointmentId,
-          status:'DECLINE'
+          status:'DECLINE',
+          user_id,
         }),
         headers: {
         'Content-type': 'application/json; charset=UTF-8',

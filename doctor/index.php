@@ -120,10 +120,10 @@ if(logged_in()){
             </a>
           </li> -->
           <li class="nav-item">
-            <a href="#" onclick="load_patient()" class="nav-link">
+            <a href="#" onclick="load_history()" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Patients
+                history
               </p>
             </a>
           </li>
@@ -167,8 +167,8 @@ if(logged_in()){
        function load_doctor() {
                   document.getElementById("pgm1").innerHTML='<object type="text/html" data="doctor.php" width="100%" height="100%"></object>';
                   }
-       function load_patient() {
-                  document.getElementById("pgm1").innerHTML='<object type="text/html" data="patient.php" width="100%" height="100%"></object>';
+       function load_history() {
+                  document.getElementById("pgm1").innerHTML='<object type="text/html" data="history.php" width="100%" height="100%"></object>';
                   }
       function load_appointment() {
                   document.getElementById("pgm1").innerHTML='<object type="text/html" data="appointment.php" width="100%" height="100%"></object>';

@@ -114,6 +114,14 @@ if (logged_in()) {
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="#" onclick="load_patient()" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Patients
+              </p>
+            </a>
+          </li>
               <li class="nav-item">
                 <a href="#" onclick="load_inventory()" class="nav-link">
                   <i class="nav-icon fas fa-cubes"></i>
@@ -154,7 +162,10 @@ if (logged_in()) {
               document.getElementById("pgm1").innerHTML = '<object type="text/html" data="inventory.php" width="100%" height="100%"></object>';
             }
             function load_dashboard() {
-              document.getElementById("pgm1").innerHTML = '<object type="text/html" data="load_dashboard.php" width="100%" height="100%"></object>';
+              document.getElementById("pgm1").innerHTML = '<object type="text/html" data="dashboard.php" width="100%" height="100%"></object>';
+            }
+            function load_patient() {
+              document.getElementById("pgm1").innerHTML = '<object type="text/html" data="patient.php" width="100%" height="100%"></object>';
             }
           </script>
           <style>

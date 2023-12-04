@@ -69,6 +69,40 @@ class AppointmentController {
     }
   }
 
+  public getHistoryByDoctor = async (req: RequestInterface, res: Response) => {
+    try {
+      const prisma = new PrismaClient();
+      const doctor_id = req.params.id
+
+      console.log('hitted', doctor_id)
+      const today = moment.utc(new Date()).tz("Asia/Manila").format();
+
+          const pastEvents = await prisma.appointment.findMany({
+            where: {
+              date: {
+                lt: today, // "lt" stands for "less than"
+              },
+              doctor_id:  + doctor_id
+            },
+            include: {
+              patient:true
+            }
+          });
+        return res.status(200).json({
+          data: pastEvents,
+          success:true
+        })
+        
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({
+        message: 'internal server error',
+        success:false
+      })
+    }
+  }
+
+
   public getHistoryAppointment = async (req: RequestInterface, res: Response) => {
     try {
       const prisma = new PrismaClient();
@@ -100,13 +134,13 @@ class AppointmentController {
 
   public updateStatus = async (req: RequestInterface, res: Response) => {
     try {
-      const {appointmentId, status} = req.body;
-      
+      const {appointmentId, status, user_id} = req.body;
+      console.log(req.body)
       const prisma = new PrismaClient();
 
-      if(!appointmentId) {
+      if(!appointmentId || !user_id) {
         return res.status(404).json({
-          message: 'Appointment ID missing',
+          message: 'Appointment ID or User Id missing',
           success:false
         })
       }
@@ -123,7 +157,8 @@ class AppointmentController {
           appointment_id: appointment?.appointment_id
         },
         data: {
-          request_status: status
+          request_status: status,
+          doctor_id: + user_id
         }
       })
 

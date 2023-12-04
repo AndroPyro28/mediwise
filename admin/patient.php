@@ -54,7 +54,7 @@ if (logged_in()) {
         <div class="card-header border-1">
             <div class="d-flex flex-row justify-content-end">
                 <?php
-                $query = "SELECT * FROM patient";
+                $query = "SELECT p.*, b.name as barangay_name  FROM patient p INNER JOIN barangay b ON b.barangay_id = p.barangay_id";
                 $result = $conn->query($query);
                 echo "<div id='successz' class = 'col-lg-12'>
                 <table class='table table-bordered table-striped dataTable dtr-inline ' id='table'>
@@ -81,7 +81,7 @@ if (logged_in()) {
                     echo "<td>" . $row['birthdate'] . "</td>";
                     echo "<td>" . $row['contact_number'] . "</td>";
                     echo "<td>" . $row['email'] . "</td>";
-                    echo "<td>" . $row['barangay'] . "</td>";
+                    echo "<td>" . $row['barangay_name'] . "</td>";
                     echo ' <td><a name="view" value="Update" id="' . $row["patient_id"] . '" class="btn btn-success btn-block update_account" style="color:white;"><i class="fas fa-edit" style="color:white;"></i></a></td>';
                 }
                 ?>

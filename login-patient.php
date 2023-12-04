@@ -34,16 +34,15 @@
      </span>
      
      
-      <br>
-     <a href="./123.html"></a> <button class="log-in"> Log In </button>
+     <br>
+     <a href="#"></a> <button class="log-in" style="margin-top:25px;"> Log In </button>
+     <center style="margin-top:25px;"> <a href="index.php" ><p>Login as admin/doctor? Click here to create</p> </center>
+     <center style="margin-top:25px;"> <a href="patient-registration.php" ><p>Don't have an account? Click here to create</p> </center>
    </div>
   
    <div class="other" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
       <!-- <button class="btn submits frgt-pass">Forgot Password</button> -->
-     <a href="patient-registration.php" > <button class="btn submits sign-up">Sign Up </a> 
-      <i class="fa fa-user-plus" aria-hidden="true"></i>
       </button>
-      <center> <a href="patient-registration.php"><p>Don't have an account? Click here to create</p> </center>
    </div>
   </div>
 </form>

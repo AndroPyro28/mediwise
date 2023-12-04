@@ -9,8 +9,11 @@ const controller = new AppointmentController()
 
 router.post('/', middleFunction, controller.create);
 router.get('/', middleFunction, controller.getAll);
+router.get('/get-history-doctor/:id', controller.getHistoryByDoctor);
 router.get('/history', middleFunction, controller.getHistoryAppointment);
 router.patch('/', controller.updateStatus);
 router.delete('/:id', controller.deleteStatus);
 
 export default router;
+
+// get-history-doctor/${user_id}

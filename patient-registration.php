@@ -106,10 +106,9 @@
                     <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                       <select class="multisteps-form__select form-control" id="barangay" name="barangay">
                         <option selected="selected">Barangay</option>
-                        <option>174</option>
-                        <option>175</option>
-                        <option>176</option>
-                        <option>178</option>
+                        <option value="1">176</option>
+                        <option value="2">177</option>
+                        <option value="3">178</option>
                       </select>
                     </div>
                     <div class="col-6 col-sm-3 mt-4 mt-sm-0">
@@ -213,6 +212,7 @@
     }) // getting the data from server
 
       const data = await result.json();
+      console.log(data)
       if (result.status === 200 && data.success) {
         window.location.assign('login-patient.php');
       } else {

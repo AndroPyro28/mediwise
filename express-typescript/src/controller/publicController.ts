@@ -63,7 +63,7 @@ class PublicController {
     
     const salt = await bcrypt.genSalt(10)
     const hashPw = await bcrypt.hash(password, salt);
-
+    console.log(req.body)
     const patient = await prisma.patient.create({
       data: {
         first_name,
@@ -71,7 +71,7 @@ class PublicController {
         last_name,
         suffix,
         birthdate: new Date(birthdate),
-        barangay,
+        barangay_id: + barangay,
         contact_number: contactNo,
         house_address: homeAddress,
         city,
@@ -83,7 +83,8 @@ class PublicController {
       }
     });
 
-    return res.status(200).json(patient);
+    return res.status(200).json({data:patient, success:true});
+    
     } catch (error) {
       console.error(error)
       return res.status(500).json({message:"internal server error", success: false});

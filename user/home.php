@@ -48,7 +48,7 @@
                     <div class="dropdown-content">
                         <a href="history.php">History</a>
                         <a href="#">Settings</a>
-                        <a href="#" id="logoutBtn">Logout sss </a>
+                        <a href="#" id="logoutBtn">Logout</a>
                     </div>
                 </div>
                 

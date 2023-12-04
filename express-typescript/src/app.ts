@@ -3,6 +3,7 @@ import publicRoutes from './routes/publicRoutes'
 import appointmentRoutes from './routes/appointmentRoutes'
 import doctorRoutes from './routes/doctorRoutes'
 import inventoryRoutes from './routes/inventoryRoutes'
+import patientRoutes from './routes/patientRoutes'
 import cors from 'cors'
 const app:Application = express()
 
@@ -16,5 +17,6 @@ app.use('/', publicRoutes)
 app.use('/appointments', appointmentRoutes)
 app.use('/doctors', doctorRoutes)
 app.use('/inventory', inventoryRoutes)
+app.use('/patients', patientRoutes)
 
 app.listen(3001, () => console.log('server starts at port 3001'))
