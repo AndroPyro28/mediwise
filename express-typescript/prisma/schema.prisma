@@ -71,7 +71,7 @@ model patient {
   first_name     String        @db.VarChar(255)
   middle_name    String?       @db.VarChar(255)
   last_name      String        @db.VarChar(255)
-  suffix         String        @db.VarChar(255)
+  suffix         String?        @db.VarChar(255)
   birthdate      DateTime      @db.Date
   contact_number String        @db.VarChar(255)
   house_address  String?       @db.VarChar(255)

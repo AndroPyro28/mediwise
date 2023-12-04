@@ -54,7 +54,7 @@ class PublicController {
       return res.status(400).json("Fill out all the required fields");
     }
 
-
+    console.log(req.body)
     let pattern = /^[A-Za-z\s]*$/;
 
     if(!pattern.test(first_name) || !pattern.test(last_name) || !pattern.test(last_name)) {
