@@ -239,6 +239,7 @@ function getActiveDay(date) {
 
 //function update events when a day is active
 function updateEvents(date) {
+  // event right side 
   let events = "";
   eventsArr.forEach((event) => {
     if (
@@ -247,14 +248,21 @@ function updateEvents(date) {
       year === event.year
     ) {
       event.events.forEach((event) => {
-        events += `<div class="event">
-            <div class="title" data-id="${event.id}">
-              <i class="fas fa-circle"></i>
-              <h3 class="event-title" >${event.title}</h3>
+        events += `
+        <div style="display:flex;">
+          <div class="event">
+          <div class="title" data-id="${event.id}">
+          <i class="fas fa-circle"></i>
+          <h3 class="event-title" >${event.title}</h3>
+          </div>
+          <div class="event-time">
+          <span class="event-time">${event.time}</span>
+          </div>
+        </div>
+        <!-- <div class="event-time">
+              <button id="print-${event.id}">Print</button>
             </div>
-            <div class="event-time">
-              <span class="event-time">${event.time}</span>
-            </div>
+            --> 
         </div>`;
       });
     }
@@ -455,6 +463,22 @@ eventsContainer.addEventListener("click", async (e) => {
         window.location.reload();
       }
     }
+
+    // to print
+    // const title = e.target.children[0].children[1].textContent
+    // const time = e.target.children[1].children[0].textContent
+    // console.log( activeDay, year, month + 1, title, time)
+    // const printWindow = window.open('', '_blank');
+    // printWindow.document.open();
+    // printWindow.document.write('<html><head><title>Print</title></head><body>');
+    // printWindow.document.write('<pre>hello</pre>');
+    // printWindow.document.write('</body></html>');
+    // printWindow.document.close();
+    // printWindow.print();
+    // printWindow.onafterprint = function () {
+    //     printWindow.close();
+    // };
+
   }
 });
 
@@ -547,6 +571,8 @@ async function getEvents() {
   } catch (error) {}
   //check if events are already saved in local storage then return event else nothing
 }
+
+
 
 function convertTime(time) {
   //convert time to 24 hour format

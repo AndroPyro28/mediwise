@@ -17,7 +17,7 @@ if (isset($_POST['LOGIN'])) {
                 title: 'Login failed!'
            })
            }</script>";
-        include 'index.php';
+        include 'login.php';
     } else {
 
         if($role === 'Admin') {
@@ -124,7 +124,7 @@ if (isset($_POST['LOGIN'])) {
                 title: 'Login failed!'
            })
            }</script>";
-        include 'index.php';
+        include 'login.php';
     }
 }
 ?>

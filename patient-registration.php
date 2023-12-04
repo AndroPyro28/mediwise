@@ -214,6 +214,7 @@
       const data = await result.json();
       console.log(data)
       if (result.status === 200 && data.success) {
+        alert("registration successful")
         window.location.assign('login-patient.php');
       } else {
         alert(data.message)

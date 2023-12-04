@@ -1,145 +1,188 @@
-<html lang="en">
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MediWise</title>
-  <link rel="icon" type="image/x-icon" href="Clogo.png">
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <link rel="stylesheet" href="dist/css/adminlte.min.css?v=3.2.0">
-  <script src="plugins/jquery/jquery.min.js"></script>
-  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="dist/js/adminlte.js"></script>
-  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <link rel="stylesheet" href="designs.css">
-</head>
+        <!--=============== BOXICONS ===============-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-<script>
-  function togglePasswordVisibility() {
-    var passwordInput = document.getElementById("password");
-    var passwordToggle = document.getElementById("passwordToggle");
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="landing.css">
 
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      passwordToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
-    } else {
-      passwordInput.type = "password";
-      passwordToggle.innerHTML = '<i class="fas fa-eye"></i>';
-    }
-  }
-</script>
-<style type="text/css">
-</style>
+        <title>MediWise</title>
+    </head>
+    <body>
+        <!--=============== HEADER ===============-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">MediWise</a>
 
-<body
-  style="background-image: url('BGPNU.JPEG');background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%;">
-  <center>
-    <br><br><br><br><br>
-    <nav>
-      <h1>
-      </h1>
-    </nav>
-    <div class="login-box">
-      <div class="card ">
-        <div class="card-body login-card-body"><img src="logo.png" style="width:150px;height:70px;">
-          <p class="login-box-msg" style="color:gray">Sign in</p>
-          <form action="loginprocess.php" method="post">
-            <div class="input-group mb-3">
-              <input type="text" name="username" class="form-control" placeholder="Username">
-              <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#home" class="nav__link active-link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#about" class="nav__link">About us</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#services" class="nav__link">Guidelines</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#contact" class="nav__link">Contact us</a>
+                        </li>
+
+                        <i class='bx bx-toggle-left change-theme' id="theme-button"></i>
+                    </ul>
                 </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
 
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="" id="passwordToggle" onclick="togglePasswordVisibility()"><i
-                      class=" fas fa-eye"></i></span>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-grid-alt'></i>
                 </div>
-              </div>
+
+                <a href="login.php" class="button button__header">Login</a>
+            </nav>
+        </header>
+
+        <main class="main">
+            <!--=============== HOME ===============-->
+            <section class="home section" id="home">
+                <div class="home__container container grid">
+                    <img src="logo.png" alt="">
+
+                    <div class="home__data">
+                        <h1 class="home__title">A path to a  <br> better health</h1>
+                        <p class="home__description">A platform gives healthcare providers the tools they need to manage medical inventory effectively,
+                             ensuring that patients get the treatment they deserve, when they need it.</p>
+
+                        <a href="login.php" class="button">Get Started</a>
+
+                    </div>   
+                </div>
+            </section>
+
+            <!--=============== ABOUT ===============-->
+            <section class="about section container" id="about">
+                <div class="about__container grid">
+                    <div class="about__data">
+                        <h2 class="section__title-center">Find Out A Little More  About Us</h2>
+                        <p class="about__description">
+                            MediWise, a meticulously designed web-based and mobile application, is tailor-made for use by the City Health Department and Barangays.
+                            This essential intermediary platform fosters seamless communication, coordination, and information exchange within a city's healthcare framework. 
+                            The innovative system significantly streamlines healthcare data, resource, and service flows, ultimately aiming to boost efficiency and effectiveness 
+                            in delivering healthcare services to the community. Serving as a central repository for critical healthcare data and enabling real-time collaboration, 
+                            MediWise empowers healthcare professionals and local authorities to join forces, ensuring residents receive optimal care. In an age where swift information
+                            and resource exchange is pivotal, MediWise stands as a vital tool for enhancing the overall healthcare experience in a city.
+                        </p>
+                    </div>    
+                    <img src="logo.png" alt="" class="left-image">
+                </div>
+            </section>
+
+            
+
+            <!--=============== SERVICES ===============-->
+            <section class="services section container" id="services">
+                <h2 class="section__title">A Few Guidelines On <br> How To Use It</h2>
+                <div class="services__container grid">
+                    <div class="services__data">
+                        <h3 class="services__subtitle">LogIn/SignUp</h3>
+                       <img src="1.png" alt="">
+                        <p class="services__description">To get access to this application, you'll need to sign in or register.</p>
+                       
+                    </div>
+
+                    <div class="services__data">
+                        <h3 class="services__subtitle">Make an Appointment</h3>
+                        <img src="2.png" alt="">
+                        <p class="services__description">Make an appointment for your consultation in your barangay</p>
+                    </div>
+
+                    <div class="services__data">
+                        <h3 class="services__subtitle">Go to your local Barangay.</h3>
+                        <img src="3.png" alt="">
+                        <p class="services__description">Wait for your appointment day and go to your barangay.</p>
+                </div>
+            </section>
+
+            
+
+            <!--=============== CONTACT US ===============-->
+            <section class="contact section container" id="contact">
+                <div class="contact__container grid">
+                    <div class="contact__content">
+                        <h2 class="section__title-center">Contact Us From  Here</h2>
+                        <p class="contact__description">You can contact us from here, you can write a message to us, 
+                            we will gladly assist you.</p>
+                    </div>
+
+                    <ul class="contact__content grid">
+                        <li class="contact__address">Email:  <span class="contact__information">mediwise@email.com</span></li>
+                        <li class="contact__address">Location: <span class="contact__information">Caloocan City North - Philippines</span></li>
+                    </ul>
+
+                    
+                </div>
+            </section>
+        </main>
+
+        <!--=============== FOOTER ===============-->
+        
             </div>
 
-            <div class="input-group mb-3" style="display:flex; justify-content:space-evenly;">
-              <div style="margin:5px;">
-                <label for="" style="color:black;" >Doctor</label>
-                <input name="role" id="role" type="radio"  value="Doctor" required/>
-              </div>
-              <div style="margin:5px;">
-                <label for="" style="color:black;" >Admin</label>
-                <input name="role" id="role" type="radio"  value="Admin" required/>
-              </div>
+            
+        <footer class="footer section">
+            <div class="footer__container container grid">
+                <div class="footer__content">
+                    <a href="#" class="footer__logo">MediWise</a>
+                   
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Quick Links</h3>
+                    <ul class="footer__links">
+                        <li><a href="#home" class="footer__link">Home </a></li>
+                        <li><a href="#about" class="footer__link">About Us</a></li>
+                        <li><a href="#services" class="footer__link">Guidelines</a></li>
+                        <li><a href="#contact" class="footer__link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Our Team</h3>
+                    <ul class="footer__links">
+                        <li><a href="#" class="footer__link">Team</a></li>
+                        <li><a href="#" class="footer__link">Our mision</a></li>
+                      
+                    </ul>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Contact</h3>
+                    <ul class="footer__links">
+                        <li><a href="#" class="footer__link">Terms & Condition</a></li>
+                        <li><a href="#" class="footer__link">Privacy Policy</a></li>
+                       
+                       
+                    </ul>
+                </div>
+
+                <div class="footer__social">
+                    <a href="https://www.facebook.com/" class="footer__social-link"><i class='bx bxl-facebook-circle '></i></a>
+                    <a href="https://www.linkedin.com/" class="footer__social-link"><i class='bx bxl-linkedin'></i></a>
+                    <a href="https://www.instagram.com/?hl=en" class="footer__social-link"><i class='bx bxl-instagram-alt'></i></a>
+                </div>
             </div>
-            <a href="login-patient.php">login as patient</a>
+            <p class="footer__copy">&#169; MediWise. All right reserved</p>
+        </footer>
 
-            <div class="row">
-              <div class="col-8">
-              </div>
-              <div class="col-4">
-                <button type="submit" id="loginbutton" name="LOGIN" class="btn btn-info btn-block">Sign In</button>
-              </div>
-            </div>
-          </form>
-          <p class="mb-1">
-          </p>
-        </div>
-      </div>
-    </div>
-  </center>
-  <!--MODAL CREATE ACCOUNT-->
-  <div class="modal fade" id="modal-default1" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-default">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Register </h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body" id="createAccount">
+        <!--=============== SCROLL UP ===============-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class='bx bx-up-arrow-alt scrollup__icon'></i>
+        </a>
 
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <script>
-    $(document).ready(function () {
-      $(document).on('click', '.create_account', function () {
-        var ticket_id = $(this).attr("id");
-        $.ajax({
-          url: "modalCreatePatient.php",
-          method: "POST",
-          data: { ticket_id: ticket_id },
-          success: function (data) {
-            $('#createAccount').html(data);
-            $('#modal-default1').modal('show');
-          }
-        })
-      })
-    });
-
-  </script>
-  <script type="text/javascript">
-    $('input').bind('input', function () {
-      var c = this.selectionStart,
-        r = /[^a-z0-9 .]/gi,
-        v = $(this).val();
-      if (r.test(v)) {
-        $(this).val(v.replace(r, ''));
-        c--;
-      }
-      this.setSelectionRange(c, c);
-    });
-  </script>
-</body>
-
+        <!--=============== MAIN JS ===============-->
+        <script src="landing.js"></script>
+    </body>
 </html>

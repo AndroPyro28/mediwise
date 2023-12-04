@@ -16,27 +16,22 @@
       <p>Enter you username and password</p>
    </header>
    <br>
-   <div class="field-set">
+   <div class="field-set" style="width:100%; ">
      
-         <span class="input-item">
+         <div class="" style="display:flex; align-items:center; height:fit; padding:5px; background-color:white; border-radius:5px;">
            <i class="fa fa-user-circle"></i>
-         </span>
-         <input class="form-input" type="text" placeholder="@UserName" id="username" required>
+           <input class="form-input" type="text" style="flex:1;" placeholder="@UserName" id="username" required>
+         </div>
      
       <br>
-      <span class="input-item">
-        <i class="fa fa-key"></i>
-       </span>
-      <input class="form-input" type="password" placeholder="Password"  id="password" required>
-     
-     <span>
-        <i class="fa fa-eye" aria-hidden="true" id="eye"></i>
-     </span>
-     
-     
-     <br>
-     <a href="#"></a> <button class="log-in" style="margin-top:25px;"> Log In </button>
-     <center style="margin-top:25px;"> <a href="index.php" ><p>Login as admin/doctor? Click here to create</p> </center>
+      <div class="" style="display:flex; align-items:center; height:fit; padding:5px; background-color:white; border-radius:5px;">
+            <i class="fa fa-key"></i>
+            <input class="form-input" type="password" placeholder="Password"  style="flex:1;" id="password" required>
+            <i class="fa fa-eye" aria-hidden="true" id="eye"></i>
+         </div>
+
+     <button class="log-in" style="margin-top:25px; width:100%;"> Log In </button>
+     <center style="margin-top:25px;"> <a href="login.php" ><p>Login as admin/doctor? Click here to create</p> </center>
      <center style="margin-top:25px;"> <a href="patient-registration.php" ><p>Don't have an account? Click here to create</p> </center>
    </div>
   
@@ -52,7 +47,7 @@
 // https://stackoverflow.com/questions/31224651/show-hide-password-onclick-of-button-using-javascript-only
   </script>
 
-  <script  src="./user/reverseAuth.js"></script>
+  <script src="./user/reverseAuth.js"></script>
 
 </body>
 </html>

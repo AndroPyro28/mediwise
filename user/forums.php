@@ -113,7 +113,7 @@
             </div>
             <div class="sort-story">Healing begins with compassion, and in unity, we find strength. Thank you for joining hands in our Barangay medical mission to bring health and hope to our community.</div>
             <div class="group-of-btn">
-              <a href="home.html"  class="btn book-ticket">Back to homepage</a>
+              <a href="./home.php"  class="btn book-ticket">Back to homepage</a>
             </div>
           </div>
         </div>
