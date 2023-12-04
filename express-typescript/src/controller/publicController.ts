@@ -41,7 +41,6 @@ class PublicController {
     if(!first_name ||
       !middle_name ||
       !last_name ||
-      !suffix ||
       !birthdate ||
       !contactNo ||
       !homeAddress ||
