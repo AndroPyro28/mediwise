@@ -19,6 +19,7 @@ class InventoryController {
       if (!name || !quantity) {
         return res.status(400).json({
           message: "Name Or Quantity is required",
+          success:false
         });
       }
 
@@ -32,14 +33,16 @@ class InventoryController {
       if (!item) {
         return res.status(400).json({
           message: "something went wrong...",
+          success:false
         });
       }
 
       return res.status(201).json(item);
     } catch (error) {
       console.error(error);
-      return res.status(400).json({
+      return res.status(500).json({
         message: "something went wrong...",
+        success:false
       });
     }
   };
@@ -54,7 +57,8 @@ class InventoryController {
       quantity)
       if(!inventoryId) {
         return res.status(404).json({
-          message: 'Item ID missing'
+          message: 'Item ID missing',
+          success:false
         })
       }
 
@@ -66,13 +70,16 @@ class InventoryController {
 
       if(!inventory) {
         return res.status(404).json({
-          message: 'Inventory item not found'
+          message: 'Inventory item not found',
+          success:false
+
         })
       }
 
       if(inventory.quantity && (inventory?.quantity < +quantity || inventory?.quantity <= 0)) {
         return res.status(400).json({
-          message: 'cannot deduct the quantity of item to negative'
+          message: 'cannot deduct the quantity of item to negative',
+          success:false
         })
       }
       
@@ -89,8 +96,11 @@ class InventoryController {
 
       return res.status(201).json(updatedItem);
     } catch (error) {
-      return res.status(400).json({
-        message: 'something went wrong...'
+      console.error(error)
+      return res.status(500).json({
+        message: 'internal server error',
+        success:false
+
       })
     }
   }

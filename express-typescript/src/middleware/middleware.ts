@@ -31,15 +31,13 @@ class MiddleWare {
       });
 
       if (!patient) {
-        return res.status(401).json("Patient not found");
+      return res.status(404).json({message: "user not found", success:false});
       }
-
       req.user = patient;
-
-      console.log('hitted')
       next();
     } catch (error: any) {
-      console.log(error.message);
+      console.log('heyyyy', error.message);
+      return res.status(401).json({message: "user not found", success:false});
     }
   };
 }

@@ -7,8 +7,7 @@ window.addEventListener('load', async ()=> {
     }) // getting the data from server
 
     const data = await result.json()
-
-    if(result.status === 200) {
-        return window.location.assign('123.html')
+    if(result.status === 200 && data.success) {
+        return window.location.assign('home.html')
     }
 })

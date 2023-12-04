@@ -1,62 +1,3 @@
-<!-- <?php
-// Replace these variables with your database credentials
-// include '../connectMySQL.php';
-// include '../loginverification.php';
-// Retrieve data from the inventory table
-// $sql = "SELECT * FROM inventory";
-// $result = $conn->query($sql);
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Page</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
-</head>
-<body>
-
-<h2>Inventory</h2>
-
-<?php
-// Check if there are records in the inventory table
-// if ($result->num_rows > 0) {
-//     echo "<table>";
-//     echo "<tr><th>ID</th><th>Product Name</th><th>Quantity</th><th>Price</th></tr>";
-
-//     // Output data of each row
-//     while($row = $result->fetch_assoc()) {
-//         echo "<tr><td>".$row["id"]."</td><td>".$row["product_name"]."</td><td>".$row["quantity"]."</td><td>".$row["price"]."</td></tr>";
-//     }
-
-//     echo "</table>";
-// } else {
-//     echo "No records found";
-// }
-
-// Close connection
-// $conn->close();
-?>
-
-</body>
-</html> -->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,7 +62,17 @@
 
     <h2>Inventory Management</h2>
 
-    <button onclick="openModal()">Add Item</button>
+    <div style="flex; justify-content:space-between;">
+        <div style="flex">
+            <label for="search">Search by Item Name:</label>
+            <input type="text" id="search" oninput="sortTableByName()">
+        </div>
+        <button onclick="openModal()">Add Item</button>
+    </div>
+
+
+
+
 
     <!-- Item Modal -->
     <div id="itemModal" class="modal">
@@ -141,27 +92,29 @@
     </div>
 
     <div id="updateModal" class="modal">
-    <div class="modal-content">
-        <span onclick="closeUpdateModal()" style="float: right; cursor: pointer;">&times;</span>
-        <h3>Update Quantity</h3>
-        <div>
-            <input type="hidden"id="inventory_id" name="inventory_id" class="inventory_id">
-            <label for="quantityToDecrease">Decrease by:</label>
-            <input type="number" id="quantityToDecrease" class="quantityToDecrease" name="quantityToDecrease" required>
-            <br>
-            <button type="submit" class="updateQuantityBtn">Update Quantity</button>
+        <div class="modal-content">
+            <span onclick="closeUpdateModal()" style="float: right; cursor: pointer;">&times;</span>
+            <h3>Update Quantity</h3>
+            <div>
+                <input type="hidden" id="inventory_id" name="inventory_id" class="inventory_id">
+                <label for="quantityToDecrease">Decrease by:</label>
+                <input type="number" id="quantityToDecrease" class="quantityToDecrease" name="quantityToDecrease"
+                    required>
+                <br>
+                <button type="submit" class="updateQuantityBtn">Update Quantity</button>
+            </div>
         </div>
     </div>
-</div>
 
 
     <!-- Display Inventory Table -->
-    <table>
+    <table id="inventoryTable">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Item Name</th>
                 <th>Quantity</th>
+                <th>Barangay</th>
             </tr>
         </thead>
         <tbody>
@@ -176,7 +129,8 @@
             }
 
             // Retrieve items from the database
-            $sql = "SELECT * FROM inventory";
+            $sql = "
+            SELECT i.*, b.name as barangay_name FROM inventory i INNER JOIN barangay b ON i.barangay_id = b.barangay_id";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -185,7 +139,8 @@
                         <td>" . $row["inventory_id"] . "</td>
                         <td>" . $row["name"] . "</td>
                         <td>" . $row["quantity"] . "</td>
-                        <td > <button onclick='openUpdateModal(".$row["inventory_id"].", ".$row["quantity"].")'>Update</button> </td>
+                        <td>" . $row["barangay_name"] . "</td>
+                        <td > <button onclick='openUpdateModal(" . $row["inventory_id"] . ", " . $row["quantity"] . ")'>Update</button> </td>
                       </tr>";
                 }
             } else {
@@ -209,7 +164,7 @@
 
     <script>
         const addItemBtn = document.querySelector('.addItemBtn');
-        
+
         const nameNode = document.querySelector('.name');
         const quantityNode = document.querySelector('.quantity');
 
@@ -217,33 +172,33 @@
             const name = nameNode.value
             const quantity = quantityNode.value
 
-            if(!name || !quantity) {
+            if (!name || !quantity) {
                 return alert("name or quantity must be filled")
             }
             const result = await fetch("http://localhost:3001/inventory", {
                 // sending data to the server
                 method: "POST",
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify({name, quantity})
+                body: JSON.stringify({ name, quantity })
             });
 
             const data = await result.json();
 
-            if(result.status === 201) {
+            if (result.status === 201) {
                 window.location.reload()
             }
         })
     </script>
 
-<script>
+    <script>
         const updateQuantityBtn = document.querySelector('.updateQuantityBtn');
-       
+
         updateQuantityBtn.addEventListener('click', async () => {
             const inventory_id = document.querySelector('.inventory_id').value;
             const quantityToDecrease = document.querySelector('.quantityToDecrease');
             const quantity = quantityToDecrease.value
 
-            if(!quantity) {
+            if (!quantity) {
                 return alert("quantity must be filled")
             }
             const result = await fetch(`http://localhost:3001/inventory/${inventory_id}`, {
@@ -255,23 +210,46 @@
 
             const data = await result.json();
 
-            if(result.status === 201) {
+            if (result.status === 201) {
                 window.location.reload()
             }
         })
     </script>
 
 
-<script>
-    function openUpdateModal(itemId) {
-        document.getElementById("inventory_id").value = itemId;
-        document.getElementById("updateModal").style.display = "flex";
-    }
+    <script>
+        function openUpdateModal(itemId) {
+            document.getElementById("inventory_id").value = itemId;
+            document.getElementById("updateModal").style.display = "flex";
+        }
 
-    function closeUpdateModal() {
-        document.getElementById("updateModal").style.display = "none";
-    }
-</script>
+        function closeUpdateModal() {
+            document.getElementById("updateModal").style.display = "none";
+        }
+    </script>
+
+    <script>
+        function sortTableByName() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("inventoryTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Column index 1 is for item_name
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
 
 </body>
 

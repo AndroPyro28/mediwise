@@ -20,7 +20,8 @@ class PublicController {
   };
 
   public register = async (req: Request, res: Response) => {
-    const prisma = new PrismaClient();
+    try {
+      const prisma = new PrismaClient();
     const {
       first_name,
       middle_name,
@@ -51,14 +52,13 @@ class PublicController {
       !email ||
       !password ||
       !gender) {
-      return res.status(400).json("Fill out all the required fields");
+      return res.status(400).json({message:"Fill out all the required fields", success: false});
     }
 
-    console.log(req.body)
     let pattern = /^[A-Za-z\s]*$/;
 
     if(!pattern.test(first_name) || !pattern.test(last_name) || !pattern.test(last_name)) {
-      return res.status(400).json("firstname, lastname, middlename must have letters only");
+      return res.status(400).json({message:"firstname, lastname, middlename must have letters only", success: false});
     }
     
     const salt = await bcrypt.genSalt(10)
@@ -84,14 +84,20 @@ class PublicController {
     });
 
     return res.status(200).json(patient);
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({message:"internal server error", success: false});
+    }
+    
   };
 
   public login = async (req: Request, res: Response) => {
-    const { username, password } = req.body;
+    try {
+      const { username, password } = req.body;
     const prisma = new PrismaClient();
 
     if (!username || !password) {
-      return res.status(400).json("Invalid Credentials");
+      return res.status(400).json({message:"Invalid Credentials", success: false});
     }
 
     const patient = await prisma.patient.findFirst({
@@ -101,13 +107,14 @@ class PublicController {
     });
 
     if (!patient) {
-      return res.status(400).json("Invalid Credentials");
+      return res.status(400).json({message:"Invalid Credentials", success: false});
     }
 
     const isMatch = await bcrypt.compare(password, patient.password);
 
     if (!isMatch) {
-      return res.status(400).json("Invalid Credentials");
+      return res.status(400).json({message:"Invalid Credentials", success: false});
+
     }
     const maxAge = 24 * 60 * 60;
 
@@ -115,7 +122,12 @@ class PublicController {
       expiresIn: maxAge,
     });
 
-    return res.status(200).json(token);
+    return res.status(200).json({token, success: true});
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({message:"internal server error", success: false});
+    }
+    
   };
 
   public getMe = async (req: Request, res: Response) => {
@@ -125,7 +137,7 @@ class PublicController {
       const token = req.headers.token;
 
       if (!token) {
-        return res.status(401).json({ message: "Token not Found" });
+        return res.status(401).json({ message: "Token not Found", success:false });
       }
 
       const payload = jwt.verify(token as string, "secret") as {
@@ -141,12 +153,13 @@ class PublicController {
       });
 
       if (!patient) {
-        return res.status(401).json("Patient not found");
+        return res.status(401).json({message: 'Patient not found', success:false});
       }
 
-      return res.status(200).json(patient);
+      return res.status(200).json({data:patient, success:true});
     } catch (error) {
-      return res.status(401).json("Patient not found");
+      console.error(error)
+      return res.status(500).json({message:"internal server error", success: false});
     }
   };
 }

@@ -30,9 +30,6 @@ document.getElementById("eye").addEventListener("click", function () {
 
 loginBtn.addEventListener('click', async (e) => {
     e.preventDefault()
-    console.log('clicked')
-
-
     const username = usernameNode.value
     const password = passwordNode.value
     e.preventDefault();
@@ -45,9 +42,11 @@ loginBtn.addEventListener('click', async (e) => {
 
     const data = await result.json();
 
-    if (data.message) {
+    if (!data.success && result !== 200) {
         return window.alert('Invalid credentials')
+    } else {
+        window.localStorage.setItem('token', data.token)
+        window.location.assign('home.html')
     }
-    window.localStorage.setItem('token', data)
-    window.location.assign('123.html')
+    
 })

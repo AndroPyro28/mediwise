@@ -12,7 +12,7 @@ class AppointmentController {
   
   public create = async (req: RequestInterface, res: Response) => {
     try {
-      const prisma = new PrismaClient();
+    const prisma = new PrismaClient();
     const {activeDay, newEvent,eventDoctor} = req.body
 
     const date = new Date()
@@ -32,15 +32,17 @@ class AppointmentController {
 
     if(!appointment) {
       return res.status(400).json({
-        message: 'something went wrong...'
+        message: 'appointment already exist',
+        success:false
       })
     }
 
     return res.status(201).json(appointment);
     } catch (error) {
       console.error(error)
-      return res.status(400).json({
-        message: 'something went wrong...'
+      return res.status(500).json({
+        message: 'internal server error',
+        success:false
       })
     }
   }
@@ -59,13 +61,41 @@ class AppointmentController {
 
     return res.status(201).json(appointments);
     } catch (error) {
-      return res.status(400).json({
-        message: 'something went wrong...'
+      console.error(error)
+      return res.status(500).json({
+        message: 'internal server error',
+        success:false
       })
     }
   }
 
-
+  public getHistoryAppointment = async (req: RequestInterface, res: Response) => {
+    try {
+      const prisma = new PrismaClient();
+      
+      const today = moment.utc(new Date()).tz("Asia/Manila").format();
+    console.log(today)
+          const pastEvents = await prisma.appointment.findMany({
+            where: {
+              date: {
+                lt: today, // "lt" stands for "less than"
+              },
+              patient_id: req.user.patient_id
+            },
+          });
+        return res.status(200).json({
+          data: pastEvents,
+          success:true
+        })
+        
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({
+        message: 'internal server error',
+        success:false
+      })
+    }
+  }
 
 
   public updateStatus = async (req: RequestInterface, res: Response) => {
@@ -76,7 +106,8 @@ class AppointmentController {
 
       if(!appointmentId) {
         return res.status(404).json({
-          message: 'Appointment ID missing'
+          message: 'Appointment ID missing',
+          success:false
         })
       }
 
@@ -98,8 +129,10 @@ class AppointmentController {
 
       return res.status(201).json(updatedAppointments);
     } catch (error) {
-      return res.status(400).json({
-        message: 'something went wrong...'
+      console.error(error)
+      return res.status(500).json({
+        message: 'internal server error',
+        success:false
       })
     }
   }
@@ -111,7 +144,8 @@ class AppointmentController {
 
       if(!appointmentId) {
         return res.status(404).json({
-          message: 'Appointment ID missing'
+          message: 'Appointment ID missing',
+          success:false
         })
       }
 
@@ -123,8 +157,10 @@ class AppointmentController {
 
       return res.status(201).json(appointment);
     } catch (error) {
-      return res.status(400).json({
-        message: 'something went wrong...'
+      console.error(error)
+      return res.status(500).json({
+        message: 'internal server error',
+        success:false
       })
     }
   }
