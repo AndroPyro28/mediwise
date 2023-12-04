@@ -21,9 +21,6 @@ class PublicController {
 
   public register = async (req: Request, res: Response) => {
     const prisma = new PrismaClient();
-
-    
-    console.log('register hitted', req.body)
     const {
       first_name,
       middle_name,
@@ -59,9 +56,9 @@ class PublicController {
     }
 
 
-    let pattern = /[^a-zA-Z' ']/g;
+    let pattern = /^[A-Za-z\s]*$/;
 
-    if(pattern.test(first_name) || pattern.test(last_name) || pattern.test(last_name)) {
+    if(!pattern.test(first_name) || !pattern.test(last_name) || !pattern.test(last_name)) {
       return res.status(400).json("firstname, lastname, middlename must have letters only");
     }
     
