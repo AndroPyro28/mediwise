@@ -9,11 +9,11 @@ window.addEventListener('load', async ()=> {
         const data = await result.json()
         if(result.status !== 200 && !data.success) {
             window.localStorage.removeItem('token')
-            return window.location.assign('login.html')
+            return window.location.assign('../login-patient.php')
         }
     } catch (error) {
         window.localStorage.removeItem('token')
-        return window.location.assign('login.html')
+        return window.location.assign('../login-patient.php')
     }
    
 })

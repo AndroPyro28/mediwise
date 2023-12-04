@@ -17,17 +17,17 @@
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
                 <li class="nav__item">
-                <a href="home.html" class="nav__link active-link">Home</a>
+                <a href="home.php" class="nav__link active-link">Home</a>
 
                 </li>
                 <li class="nav__item">
-                    <a href="calendar.html" class="nav__link">Appointment</a>
+                    <a href="calendar.php" class="nav__link">Appointment</a>
                 </li>
                 <li class="nav__item">
-                    <a href="Forums.html" class="nav__link">Announcement</a>
+                    <a href="forums.php" class="nav__link">Announcement</a>
                 </li>
                 <li class="nav__item">
-                    <a href="Doctor List.html" class="nav__link">Doctors</a>
+                    <a href="doctor-list.php" class="nav__link">Doctors</a>
                 </li>
 
 
@@ -43,7 +43,7 @@
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAepJREFUSEu11UuoSFEUBuDvkphgIKG8ihCFgVAyQiEjjzEppZCipDBBjL1CKY+ZIlEiSYkMiJIByiMGSJJMGHi1tE9tu7Pvqau7Z/usf69/rb3+/Z8e/bx6+jm/LoJBWIllmI2JqaDXeITruIQftUJ7I1iME5jU0eUzbMTtNlyNYBf20dlhk/MntuNQSdJGsAd7+zibLTiany0JluBGH5PHsV+YjwdNjpxgAJ5gegvBF+zE5RRbjQMY2oK9i4VtBKGWi5Xq1+FsEdtUXkcWX4B7sc87uIBVFYKR+FTExuBdBX8YW0uCtxhXOTAKH4vYaLyv4B9iTknwDUMqB9bjdBEL7R+v4D9jREnwtTK0wMWQd6QhhxhiXgcxrEIQuYaXBM8x5T8kmh992qgxH/IZrG0hCG0/xn18SPG4/7mYheioXKewoexgOa4WyOhqBV5UOpuGa5kJNrBFuFUSxD4qnZlQvzEZrzqubSrC8JoVnc5rNqVVBPPNDHwe8ci+V0hCdeewJsXjOuMV/31kbR3Et3DS/VnCNziS/D+sZCBmJJ2HuY3NsJtxLC+mZte7k6N2/ZCaXGHX2xAv+J/VW4KlOInxHTMIIYRi7rThuiocnPwpFBbDn4AY/kuEHYSCriA6aF1dBB3Fd4f7neAPCe1UGWoE11UAAAAASUVORK5CYII="/>
             </button>
             <div class="dropdown-content">
-                <a href="history.html">History</a>
+                <a href="history.php">History</a>
                 <a href="#">Settings</a>
                 <a href="#" id="logoutBtn">Logout</a>
             </div>
@@ -122,6 +122,16 @@
   </div>
 </div>
 </main>
+
+<script>
+            const logoutBtn = document.querySelector('#logoutBtn');
+
+            logoutBtn.addEventListener('click', () => {
+                window.localStorage.removeItem('token')
+                window.location.reload()
+            })
+        </script>
+        <script src="./auth.js"></script>
 
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>

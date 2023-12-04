@@ -8,6 +8,6 @@ window.addEventListener('load', async ()=> {
 
     const data = await result.json()
     if(result.status === 200 && data.success) {
-        return window.location.assign('home.html')
+        return window.location.assign('./user/home.php')
     }
 })

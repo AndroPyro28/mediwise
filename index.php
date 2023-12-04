@@ -76,11 +76,8 @@
                 <label for="" style="color:black;" >Admin</label>
                 <input name="role" id="role" type="radio"  value="Admin" required/>
               </div>
-              <!-- <div style="margin:5px;">
-                <label for="" style="color:black;" >Health Care</label>
-                <input name="role" id="role" type="radio"  value="Health Care"/>
-              </div> -->
             </div>
+            <a href="login-patient.php">login as patient</a>
 
             <div class="row">
               <div class="col-8">
@@ -91,8 +88,6 @@
             </div>
           </form>
           <p class="mb-1">
-            <a href="#" class="create_account">Register</a><br>
-            <a href="#" class="create_account">Forgot Password?</a><br>
           </p>
         </div>
       </div>

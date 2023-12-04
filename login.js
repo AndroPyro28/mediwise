@@ -46,7 +46,7 @@ loginBtn.addEventListener('click', async (e) => {
         return window.alert('Invalid credentials')
     } else {
         window.localStorage.setItem('token', data.token)
-        window.location.assign('home.html')
+        window.location.assign('./user/home.php')
     }
     
 })

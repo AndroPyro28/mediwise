@@ -41,7 +41,7 @@
                     <i class='bx bx-grid-alt'></i>
                 </div>
 
-                <a href="./login.html" class="button button__header">Login</a>
+                <a href="../login-patient.php" class="button button__header">Login</a>
             </nav>
         </header>
 
@@ -56,7 +56,7 @@
                         <p class="home__description">A platform gives healthcare providers the tools they need to manage medical inventory effectively,
                              ensuring that patients get the treatment they deserve, when they need it.</p>
 
-                        <a href="./user registration.html" class= button>Get Started</a>
+                        <a href="../patient-registration.php" class= button>Get Started</a>
 
                     </div>   
                 </div>

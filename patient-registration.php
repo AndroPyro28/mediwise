@@ -82,7 +82,7 @@
                   <div class="button-row d-flex mt-4">
                     <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
                   </div>
-                  <center> <a href="login.html"> <p>Already have an account? Click here to login</p></a></center>
+                  <center> <a href="login-patient.php"> <p>Already have an account? Click here to login</p></a></center>
                 </div>
               </div>
               <!--single form panel-->
@@ -169,7 +169,7 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
 <script  src="./user reg.js"></script>
-<script  src="./reverseAuth.js"></script>
+<script  src="./user/reverseAuth.js"></script>
 <script>
   const registerBtn = document.querySelector('#registerBtn');
 
@@ -213,11 +213,10 @@
     }) // getting the data from server
 
       const data = await result.json();
-      if (result.status === 200) {
-        window.location.assign('login.html');
+      if (result.status === 200 && data.success) {
+        window.location.assign('login-patient.php');
       } else {
-        console.log(data)
-        alert(data)
+        alert(data.message)
       }
   })
 </script>

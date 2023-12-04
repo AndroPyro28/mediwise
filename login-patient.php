@@ -38,20 +38,22 @@
      <a href="./123.html"></a> <button class="log-in"> Log In </button>
    </div>
   
-   <div class="other">
-      <button class="btn submits frgt-pass">Forgot Password</button>
-     <a href="./user registration.html"> <button class="btn submits sign-up">Sign Up </a> 
+   <div class="other" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <!-- <button class="btn submits frgt-pass">Forgot Password</button> -->
+     <a href="patient-registration.php" > <button class="btn submits sign-up">Sign Up </a> 
       <i class="fa fa-user-plus" aria-hidden="true"></i>
       </button>
-      <center> <a href="user registration.html"><p>Don't have an account? Click here to create</p> </center>
+      <center> <a href="patient-registration.php"><p>Don't have an account? Click here to create</p> </center>
    </div>
-     
   </div>
-  
 </form>
 </div>
-  <script  src="./login.js"></script>
-  <script  src="./reverseAuth.js"></script>
+  <script  src="./login.js">
+    // Show/hide password onClick of button using Javascript only
+// https://stackoverflow.com/questions/31224651/show-hide-password-onclick-of-button-using-javascript-only
+  </script>
+
+  <script  src="./user/reverseAuth.js"></script>
 
 </body>
 </html>

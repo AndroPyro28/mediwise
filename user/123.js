@@ -12,6 +12,7 @@ const showMenu = (toggleId, navId) =>{
     }
 }
 showMenu('nav-toggle','nav-menu')
+console.log('hello')
 
 /*=============== REMOVE MENU MOBILE ===============*/
 const navLink = document.querySelectorAll('.nav__link')
@@ -108,6 +109,7 @@ if (selectedTheme) {
 const logoutBtn = document.querySelector('#logoutBtn');
 
 logoutBtn.addEventListener('click', () => {
-    window.localStorage.removeItem('token')
-    window.location.assign('login.html')
+    alert('logout')
+    // window.localStorage.removeItem('token')
+    // window.location.reload()
 })
