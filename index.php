@@ -152,7 +152,7 @@
                 <div class="footer__content">
                     <h3 class="footer__title">Our Team</h3>
                     <ul class="footer__links">
-                        <li><a href="#" class="footer__link">Team</a></li>
+                        <li><a href="team.php" class="footer__link">Team</a></li>
                         <li><a href="#" class="footer__link">Our mision</a></li>
                       
                     </ul>
@@ -162,7 +162,7 @@
                     <h3 class="footer__title">Contact</h3>
                     <ul class="footer__links">
                         <li><a href="#" class="footer__link">Terms & Condition</a></li>
-                        <li><a href="#" class="footer__link">Privacy Policy</a></li>
+                        <li><a href="privacy.php" class="footer__link">Privacy Policy</a></li>
                        
                        
                     </ul>

@@ -9,33 +9,28 @@ class PatientController {
   public getDataForDashboard = async (req: Request, res: Response) => {
     try {
     const prisma = new PrismaClient();
-    // const patients = await prisma.patient.groupBy({
-    //     by: ['barangay_id', ],
-    //     _count: {
-    //       patient_id:true
-    //     },
-    //     // orderBy: [{ createdAt: 'asc' }], // Sort by category and then by name
-    //   }
-    // );
 
-    const barangay: {name:string, count:number}[] = []
-
+    
     const patients = await prisma.patient.findMany({
       include: {
         barangay:true
       }
     });
-
-    patients.forEach((patient) => {
+    
+    const barangay: {name:string, count:number}[] = []
+    
+    patients?.forEach((patient) => {
       const brgyIndex = barangay.findIndex((brgy) => brgy.name === patient.barangay?.name);
-      if(brgyIndex == -1 && patient.barangay && patient.barangay.name) {
-        barangay.push({
-          name: patient.barangay?.name,
-          count:1
-        })
+      if(brgyIndex === -1) {
+        if(patient.barangay &&patient.barangay.name && patient.barangay_id ) {
+          barangay.push({
+            name: patient.barangay?.name,
+            count:1
+          })
+        }
       }
        else {
-        barangay[brgyIndex].count += 1
+        barangay[brgyIndex].count = barangay[brgyIndex].count + 1;
       }
 
     })

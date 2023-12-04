@@ -18,7 +18,7 @@
 
     <script>
 
-        (async () => {
+        const main = async () => {
             const result = await fetch(`http://localhost:3001/patients/getDataForDashboard`, {
                 method: "GET",
             });
@@ -28,10 +28,11 @@
             const barangay = dataJson.data;
             console.log(barangay)
 
+
             var data = {
-                labels: barangay.map((barangay) => `Brgy. ${barangay.name}`),
+                labels: barangay?.map((barangay) => `Brgy. ${barangay?.name}`),
                 datasets: [{
-                    data: barangay.map((barangay) => barangay.count),
+                    data: barangay?.map((barangay) => barangay?.count),
                     backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#9966FF"],
                 }]
             };
@@ -45,8 +46,8 @@
                 data: data,
             });
 
-        })()
-        
+        }
+        main()
         // Sample data for the pie chart
 
         
