@@ -11,15 +11,16 @@
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./calendar.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Calendar</title>
 </head>
 
-<body style="display: flex; flex-direction: column;">
-
+<body style="display: flex; flex-direction: column; background:rgb(219, 243, 219);">
 
   <div class="container">
     
-    <a href="home.php" style="color: white; margin: 5px; text-decoration:none;">Back</a>
+    <a href="home.php" style="color: white; margin: 5px; text-decoration:none; "> <i class="fa-solid fa-circle-chevron-left fa-2x" ></i></a>
+   
     <div class="left">
       <div class="calendar">
         <div class="month">

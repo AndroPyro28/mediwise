@@ -27,7 +27,8 @@ body {
   align-items: center;
   justify-content: center;
   padding-bottom: 30px;
-  background-color: #e2e1dc;
+  /* background-color: #e2e1dc; */
+  background-color: rgb(219, 243, 219);
 }
 .container {
   position: relative;

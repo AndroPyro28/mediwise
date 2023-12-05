@@ -58,14 +58,14 @@ if (logged_in()) {
   <body id="main_body" class="hold-transition sidebar-mini " onload="load_home()">
     <div class="wrapper">
       <!-- Navbar -->
-      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="display:flex; align-items:center;">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
           </li>
 
-          <img src="../logo.png" style="width:150px;height:70px;">
+          <img src="../public/images/bhaLogo.png" style="width:70px;height:70px;object-fit:contain">
 
         </ul>
       </nav>

@@ -46,7 +46,7 @@
     </nav>
     <div class="login-box">
       <div class="card ">
-        <div class="card-body login-card-body"><img src="logo.png" style="width:150px;height:70px;">
+        <div class="card-body login-card-body"><img src="./public/images/bhaLogo.png" style="width:150px;height:150px; object-fit:cover">
           <p class="login-box-msg" style="color:gray">Sign in</p>
           <form action="loginprocess.php" method="post">
             <div class="input-group mb-3">

@@ -4,16 +4,27 @@
   <meta charset="UTF-8">
   <title>Login</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'><link rel="stylesheet" href="./login.css">
-
+  <style>
+    body {
+      background:rgb(219, 243, 219);
+      height:100vh;
+       width:100vw; 
+       display: flex;
+      justify-content:center;
+      align-items: center;
+    }
+    .form {
+      padding:50px
+    }
+  </style>
 </head>
-<body>
-<div class="overlay">
-
-<form>
-   <div class="con">
+<body stlye="background:rgb(219, 243, 219);">
+<div class="overlay" style="">
+<form style="" class="form">
+   <div class="con" style="">
    <header class="head-form">
       <h2>Log In</h2>
-      <p>Enter you username and password</p>
+      <p>Enter you username and password</p> 
    </header>
    <br>
    <div class="field-set" style="width:100%; ">

@@ -10,7 +10,7 @@
 
 </head>
 
-<body>
+<body style="background:rgb(219, 243, 219);">
   <!-- partial:index.partial.html -->
   <!--PEN HEADER-->
   <header class="header">

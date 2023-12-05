@@ -428,6 +428,8 @@ addEventSubmit.addEventListener("click", async () => {
     method: "POST",
     body: JSON.stringify({
       activeDay,
+      year,
+      month,
       eventDoctor,
       doctor_id,
       newEvent: { title: eventTitle, time: eventTimeFrom },
@@ -436,6 +438,7 @@ addEventSubmit.addEventListener("click", async () => {
   });
 
   const data = await result.json();
+  console.log(data)
   await getEvents();
 
   addEventWrapper.classList.remove("active");

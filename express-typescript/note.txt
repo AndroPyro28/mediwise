@@ -1,8 +1,8 @@
 1. install nodeJs
 
+2. right click "express-typescript" folder then click "open in integrated terminal"
 
-
-2.run this command step by step
+3.run this command step by step
 1. npm install
 2. npx prisma db push
 3. npx prisma generate

@@ -49,7 +49,7 @@
             <!--=============== HOME ===============-->
             <section class="home section" id="home">
                 <div class="home__container container grid">
-                    <img src="clogo.png" alt="">
+                    <img src="./public/images/bhaLogo.png" alt="">
 
                     <div class="home__data">
                         <h1 class="home__title">A path to a  <br> better health</h1>
