@@ -190,8 +190,7 @@
                     <!-- <p>Please check your email to verify your account.</p></center> -->
                     <div class="button-row d-flex mt-4">
                       <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
-                      <a href=""></a> <button class="btn btn-primary ml-auto js-btn-next" id="registerBtn" type="button"
-                        title="Next">Done</button>
+                      <a href=""></a> <button class="btn btn-primary ml-auto" id="registerBtn" >Done</button>
 
                     </div>
                 </div>
