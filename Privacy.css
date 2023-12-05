@@ -48,8 +48,8 @@ button:-moz-focusring {
 
 body {
   margin: 0;
-  background: lightgreen;
-  background-image: ;
+  /* background: lightgreen; */
+  /* background-image: ; */
   background-repeat: no-repeat round;
   font-family: "Open Sans", sans-serif;
   --clr-dark: #1b262c;
@@ -175,3 +175,4 @@ main {
 /* Hover effect */
 .custom-button:hover {
   background-color: white; /* Change color on hover */
+}

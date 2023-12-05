@@ -11,12 +11,48 @@
         <link rel="stylesheet" href="landing.css">
 
         <title>MediWise</title>
+        <style>
+            @keyframes slideToLeft {
+                from {
+                    margin-right: -99999px;
+                }
+                to {
+                    margin-right: 0px;
+                }
+            }
+
+            @keyframes slideToRight {
+                from {
+                    margin-left: -99999px;
+                }
+                to {
+                    margin-left: 0px;
+                }
+            }
+
+            .about {
+                animation: slideToLeft 1s ;
+            }
+            .home {
+                animation: slideToRight 1s ;
+            }
+            .services {
+                animation: slideToLeft 1s ;
+            }
+            .contact {
+                animation: slideToRight 1s ;
+
+            }
+        </style>
     </head>
-    <body>
+    <body style=" background-color: #ffefd7; ">
         <!--=============== HEADER ===============-->
         <header class="header" id="header">
-            <nav class="nav container">
-                <a href="#" class="nav__logo">MediWise</a>
+            <nav class="nav container" style="overflow:hidden;">
+            <img src="./public/images/bhaLogo.png" alt="" style="height:100px">
+
+            <img src="./public/images/mediwiseLogo.png" alt="" style="height:200px">
+
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
@@ -48,10 +84,9 @@
         <main class="main">
             <!--=============== HOME ===============-->
             <section class="home section" id="home">
-                <div class="home__container container grid">
-                    <img src="./public/images/bhaLogo.png" alt="">
-
-                    <div class="home__data">
+                <div class="home__container container grid" >
+                    <img src="./clogo.png" alt="" >
+                    <div class="home__data" style="margin-left:-150px;">
                         <h1 class="home__title">A path to a  <br> better health</h1>
                         <p class="home__description">A platform gives healthcare providers the tools they need to manage medical inventory effectively,
                              ensuring that patients get the treatment they deserve, when they need it.</p>
@@ -76,8 +111,9 @@
                             and resource exchange is pivotal, MediWise stands as a vital tool for enhancing the overall healthcare experience in a city.
                         </p>
                     </div>    
-                    <img src="logo.png" alt="" class="left-image">
+                <img src="./BGPNU.jpeg" alt="" style="height:400px; width:400px; border-radius:20px; object-fit: cover;;" class="left-image">
                 </div>
+
             </section>
 
             

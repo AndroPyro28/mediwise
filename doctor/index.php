@@ -64,7 +64,6 @@ if(logged_in()){
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
 
-       <img src="../public/images/bhaLogo.png" style="width:70px;height:70px;object-fit:contain">
 
       
     </ul>
@@ -75,7 +74,7 @@ if(logged_in()){
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- brand logo -->
       <a href="#" onclick="load_home()" class="brand-link">
-      <img src="../clogo.png"  class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">MediWise</span>
+      <img src="../clogo.png"  class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-1000">MediWise</span>
     </a>
     </a>
 </a>

@@ -65,7 +65,6 @@ if (logged_in()) {
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
           </li>
 
-          <img src="../public/images/bhaLogo.png" style="width:70px;height:70px;object-fit:contain">
 
         </ul>
       </nav>

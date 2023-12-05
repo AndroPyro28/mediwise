@@ -10,7 +10,7 @@
 
 </head>
 
-<body style="background:rgb(219, 243, 219);">
+<body style="background-color: #ffefd7;">
   <!-- partial:index.partial.html -->
   <!--PEN HEADER-->
   <header class="header">
@@ -102,17 +102,20 @@
                   </div>
 
                   <div class="form-row mt-4">
-                    <div class="col-12 col-sm-6" style="flex flex-direction: column;">
-                      <label for="">Street</label>
-                      <input class="multisteps-form__input form-control" type="text" placeholder="Street" id="street" required
-                        name="street" />
-                    </div>
-                    <div class="col" style="flex flex-direction: column;">
+
+                  <div class="col" style="flex flex-direction: column;">
                       <label for="">Home number</label>
                       <input class="multisteps-form__input form-control" type="number" placeholder="Home number"
                         id="homeNo" name="homeNo" required />
                     </div>
 
+                    
+                    <div class="col-12 col-sm-6" style="flex flex-direction: column;">
+                      <label for="">Street</label>
+                      <input class="multisteps-form__input form-control" type="text" placeholder="Street" id="street" required
+                        name="street" />
+                    </div>
+                    
                   </div>
 
                   <div class="form-row mt-4">
