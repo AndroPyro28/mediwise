@@ -137,7 +137,7 @@
                   <div class="form-row mt-4">
                     <div class="col-12 col-sm-6" style="flex flex-direction: column;">
                       <label for="">Zip</label>
-                      <input class="multisteps-form__input form-control" type="number" placeholder="Zip" value="3002" id="zip" name="zip" disabled required />
+                      <input class="multisteps-form__input form-control" type="number" placeholder="Zip" value="1400" id="zip" name="zip" disabled required />
                     </div>
                     <div class="col-12 col-sm-6" style="flex flex-direction: column;">
                       <label for="">City</label>
