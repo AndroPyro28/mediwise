@@ -37,41 +37,59 @@ model appointment {
 }
 
 model inventory {
-  inventory_id Int      @id @default(autoincrement())
-  description  String?  @db.VarChar(255)
-  name         String?  @db.VarChar(255)
-  quantity     Int?     @db.Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now()) @updatedAt
+  inventory_id Int       @id @default(autoincrement())
+  description  String?   @db.VarChar(255)
+  name         String?   @db.VarChar(255)
+  quantity     Int?      @db.Int
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
   barangay_id  Int?
   barangay     barangay? @relation(fields: [barangay_id], references: [barangay_id])
 }
 
 model doctor {
-  doctor_id    Int           @id @default(autoincrement())
-  first_name   String        @db.VarChar(255)
-  middle_name  String?       @db.VarChar(255)
-  username     String        @db.VarChar(250)
-  password     String        @db.VarChar(250)
-  last_name    String        @db.VarChar(255)
-  suffix       String        @db.VarChar(255)
-  specialist   String        @db.VarChar(255)
-  id_number    String        @db.VarChar(255)
-  barangay     String        @db.VarChar(255)
-  appointments appointment[]
-  status       String        @default("ACTIVE") @db.VarChar(100)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @default(now()) @updatedAt
+  doctor_id     Int             @id @default(autoincrement())
+  first_name    String          @db.VarChar(255)
+  middle_name   String?         @db.VarChar(255)
+  username      String          @db.VarChar(250)
+  password      String          @db.VarChar(250)
+  last_name     String          @db.VarChar(255)
+  suffix        String          @db.VarChar(255)
+  specialist    String          @db.VarChar(255)
+  id_number     String          @db.VarChar(255)
+  barangay      String          @db.VarChar(255)
+  appointments  appointment[]
+  status        String          @default("ACTIVE") @db.VarChar(100)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now()) @updatedAt
+  work_schedule work_schedule[]
 }
 
-  model event {
+model work_schedule {
+  work_schedule_id    Int      @id @default(autoincrement())
+  title      String
+
+  isArchived Boolean @default(false)
+
+  start DateTime?
+  end   DateTime?
+  allDay    Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // doctor who owns the work schedule
+  doctor_id Int
+  doctor      doctor @relation(fields: [doctor_id], references: [doctor_id])
+}
+
+model event {
   event_id    Int      @id @default(autoincrement())
   title       String   @db.Text
   description String   @db.Text
   image       String   @db.LongText
   date        DateTime @default(now())
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt @default(now()) 
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model patient {
@@ -84,7 +102,8 @@ model patient {
   suffix         String?       @db.VarChar(255)
   birthdate      DateTime      @db.Date
   contact_number String        @db.VarChar(255)
-  house_address  String?       @db.VarChar(255)
+  street         String?       @db.VarChar(255)
+  homeNo         String?       @db.VarChar(255)
   city           String?       @db.VarChar(255)
   gender         String?       @db.VarChar(255)
   zip            String?       @db.VarChar(255)

@@ -13,23 +13,29 @@ class AppointmentController {
   public create = async (req: RequestInterface, res: Response) => {
     try {
     const prisma = new PrismaClient();
-    const {activeDay, newEvent,eventDoctor} = req.body
+    const { activeDay, newEvent,eventDoctor } = req.body
 
     const date = new Date()
     const time = newEvent.time;
     date.setDate(activeDay)
-    date.setHours( + time.split(':')[0],  + time.split(':')[1], )
+    date.setHours( + time.split(':')[0],  + time.split(':')[1],)
+
+    if(req.user.patient_id) {
+      return res.status(400).json({
+        message: 'Patient missing',
+        success:false
+      })
+    }
 
     const appointment = await prisma.appointment.create({
       data: {
         date: date,
-        doctor_name: eventDoctor,
+        doctor_id:  + eventDoctor,
         description:newEvent.title,
-        // doctor_id:1,
         patient_id: req.user.patient_id
       }
     })
-
+    
     if(!appointment) {
       return res.status(400).json({
         message: 'appointment already exist',

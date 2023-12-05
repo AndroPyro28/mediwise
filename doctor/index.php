@@ -96,6 +96,14 @@ if(logged_in()){
             </a>
           </li> -->
           <li class="nav-item">
+            <a href="#" onclick="load_schedule()" class="nav-link">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                Schedule
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" onclick="load_appointment()" class="nav-link">
               <i class="nav-icon fas fa-calendar"></i>
               <p>
@@ -172,6 +180,9 @@ if(logged_in()){
                   }
       function load_appointment() {
                   document.getElementById("pgm1").innerHTML='<object type="text/html" data="appointment.php" width="100%" height="100%"></object>';
+                  }
+                  function load_schedule() {
+                  document.getElementById("pgm1").innerHTML='<object type="text/html" data="schedule.php" width="100%" height="100%"></object>';
                   }
       function load_event() {
                   document.getElementById("pgm1").innerHTML='<object type="text/html" data="event.php" width="100%" height="100%"></object>';

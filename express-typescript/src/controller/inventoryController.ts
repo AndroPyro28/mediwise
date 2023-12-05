@@ -15,9 +15,9 @@ class InventoryController {
       const prisma = new PrismaClient();
       const { name, quantity, barangay } = req.body;
 
-      if (!name || !quantity) {
+      if (!name || !quantity || !barangay) {
         return res.status(400).json({
-          message: "Name Or Quantity is required",
+          message: "Name, quantity or barangay are required",
           success:false
         });
       }
@@ -52,9 +52,7 @@ class InventoryController {
       const inventoryId = req.params.id
       const prisma = new PrismaClient();
       const {quantity} = req.body
-      
-      console.log('update inventory item', inventoryId,
-      quantity)
+    
       if(!inventoryId) {
         return res.status(404).json({
           message: 'Item ID missing',

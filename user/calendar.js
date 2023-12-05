@@ -57,10 +57,33 @@ const months = [
 
 let eventsArr = [];
 getEvents();
-console.log(eventsArr);
+
+async function getDoctors() {
+  const token = window.localStorage.getItem("token");
+    const result = await fetch("http://localhost:3001/doctors", {
+      // sending data to the server
+      method: "GET",
+      headers: { token },
+    });
+    const data = await result.json()
+
+    const selectElem = document.querySelector('.doctor_id');
+
+    data.forEach(doctor => {
+      const opt = document.createElement('option')
+      opt.value = doctor.doctor_id
+      opt.innerHTML = `Dr. ${doctor.first_name} ${doctor.last_name}`
+      selectElem.appendChild(
+        opt
+      )
+    });
+}
+
 
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
+getDoctors()
+
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
   const prevLastDay = new Date(year, month, 0);
@@ -135,6 +158,7 @@ function nextMonth() {
     year++;
   }
   initCalendar();
+  
 }
 
 prev.addEventListener("click", prevMonth);
@@ -144,6 +168,7 @@ initCalendar();
 
 //function to add active on day
 function addListner() {
+
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
     day.addEventListener("click", (e) => {
@@ -216,7 +241,6 @@ dateInput.addEventListener("input", (e) => {
 gotoBtn.addEventListener("click", gotoDate);
 
 function gotoDate() {
-  console.log("here");
   const dateArr = dateInput.value.split("/");
   if (dateArr.length === 2) {
     if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length === 4) {
@@ -274,6 +298,7 @@ function updateEvents(date) {
   }
   eventsContainer.innerHTML = events;
   saveEvents();
+
 }
 
 //function to add event
@@ -317,7 +342,6 @@ defineProperty();
 
 //allow only time in eventtime from and to
 addEventFrom.addEventListener("input", (e) => {
-  console.log("change event");
   addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g, "");
   if (addEventFrom.value.length === 2) {
     addEventFrom.value += ":";
@@ -328,7 +352,6 @@ addEventFrom.addEventListener("input", (e) => {
 });
 
 addEventTo?.addEventListener("input", (e) => {
-  console.log("change event");
   addEventTo.value = addEventTo.value.replace(/[^0-9:]/g, "");
   if (addEventTo.value.length === 2) {
     addEventTo.value += ":";
@@ -366,53 +389,8 @@ addEventSubmit.addEventListener("click", async () => {
 
   const timeFrom = convertTime(eventTimeFrom);
   // const timeTo = convertTime(eventTimeTo);
+  const doctor_id = document.querySelector('.doctor_id').value;
 
-  //check if event is already added
-  // let eventExist = false;
-  // eventsArr.forEach((event) => {
-  //   if (
-  //     event.day === activeDay &&
-  //     event.month === month + 1 &&
-  //     event.year === year
-  //   ) {
-  //     event.events.forEach((event) => {
-  //       if (event.title === eventTitle) {
-  //         eventExist = true;
-  //       }
-  //     });
-  //   }
-  // });
-  // if (eventExist) {
-  //   alert("Event already added");
-  //   return;
-  // }
-  // const newEvent = {
-  //   title: eventTitle,
-  //   time: timeFrom,
-  // };
-
-  // let hasEvent = false;
-  // if (eventsArr.length > 0) {
-  //   eventsArr.forEach((item) => {
-  //     if (
-  //       item.day === activeDay &&
-  //       item.month === month + 1 &&
-  //       item.year === year
-  //     ) {
-  //       item.events.push(newEvent);
-  //       hasEvent = true;
-  //     }
-  //   });
-  // }
-
-  // if (!hasEvent) {
-  //   eventsArr.push({
-  //     day: activeDay,
-  //     month: month + 1,
-  //     year: year,
-  //     events: [newEvent],
-  //   });
-  // }
   const token = window.localStorage.getItem("token");
 
   const result = await fetch("http://localhost:3001/appointments", {
@@ -421,6 +399,7 @@ addEventSubmit.addEventListener("click", async () => {
     body: JSON.stringify({
       activeDay,
       eventDoctor,
+      doctor_id,
       newEvent: { title: eventTitle, time: eventTimeFrom },
     }),
     headers: { "Content-type": "application/json", token },
@@ -444,6 +423,7 @@ addEventSubmit.addEventListener("click", async () => {
 
 //function to delete event when clicked on event
 eventsContainer.addEventListener("click", async (e) => {
+
   if (e.target.classList.contains("event")) {
     if (confirm("Are you sure you want to delete this event?")) {
       const token = localStorage.getItem("token");
@@ -541,38 +521,9 @@ async function getEvents() {
       });
     }
 
-    // let hasEvent = false;
-    // if (eventsArr.length > 0) {
-    //   eventsArr.forEach((item) => {
-    //     if (item.day === activeDay && item.month === month + 1 && item.year === year ) {
-    //       item.events.push(newEvent);
-    //       hasEvent = true;
-    //     }
-    //   });
-    // }
-    // if (!hasEvent) {
-    //   eventsArr.push({
-    //     day: activeDay,
-    //     month: month + 1,
-    //     year: year,
-    //     events: [newEvent],
-    //   });
-    // }
-    // if(activeDay === currentDay) {
-    //   eventsArr.push({
-    //     day: activeDay,
-    //     month: currentMonth + 1,
-    //     year: year,
-    //     events: [newEvent],
-    //   })
-    // }
-
-    // })
   } catch (error) {}
   //check if events are already saved in local storage then return event else nothing
 }
-
-
 
 function convertTime(time) {
   //convert time to 24 hour format
@@ -584,8 +535,3 @@ function convertTime(time) {
   time = timeHour + ":" + timeMin + " " + timeFormat;
   return time;
 }
-
-window.addEventListener("load", async () => {
-  await getEvents();
-  initCalendar();
-});

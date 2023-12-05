@@ -22,6 +22,7 @@ class PublicController {
   public register = async (req: Request, res: Response) => {
     try {
       const prisma = new PrismaClient();
+     
     const {
       first_name,
       middle_name,
@@ -29,28 +30,31 @@ class PublicController {
       suffix,
       birthdate,
       contactNo,
-      homeAddress,
       city,
       barangay,
       zip,
       username,
       email,
       password,
-      gender
+      gender,
+      homeNo,
+      street,
     } = req.body;
+
 
     if(!first_name ||
       !middle_name ||
       !last_name ||
       !birthdate ||
       !contactNo ||
-      !homeAddress ||
       !city ||
       !barangay ||
       !zip ||
       !username ||
       !email ||
       !password ||
+      !homeNo ||
+      !street ||
       !gender) {
       return res.status(400).json({message:"Fill out all the required fields", success: false});
     }
@@ -73,7 +77,8 @@ class PublicController {
         birthdate: new Date(birthdate),
         barangay_id: + barangay,
         contact_number: contactNo,
-        house_address: homeAddress,
+        street,
+        homeNo,
         city,
         zip,
         username: username,

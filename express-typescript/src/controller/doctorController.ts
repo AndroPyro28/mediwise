@@ -15,7 +15,11 @@ class AppointmentController {
     const prisma = new PrismaClient();
                                           // const today = moment.utc(date).tz("Asia/Manila").format();
                                           // console.log(today)
-    const doctors = await prisma.doctor.findMany({})
+    const doctors = await prisma.doctor.findMany({
+      include: {
+        work_schedule:true
+      }
+    })
     return res.status(201).json(doctors);
     } catch (error) {
       console.error(error)
@@ -25,7 +29,6 @@ class AppointmentController {
       })
     }
   }
-
 }
 
 export default AppointmentController;

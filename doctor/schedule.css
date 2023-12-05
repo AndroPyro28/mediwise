@@ -1,0 +1,58 @@
+#calendar {
+    margin: 0 auto;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.fc-header {
+    background-color: #4285f4;
+    color: #ffffff;
+}
+
+.fc-button-primary {
+    background-color: #4285f4;
+    color: #ffffff;
+    border: 1px solid #4285f4;
+}
+
+.fc-button-primary:hover {
+    background-color: #357ae8;
+    border: 1px solid #357ae8;
+}
+
+.fc-button-primary.fc-button-active {
+    background-color: #357ae8;
+    border: 1px solid #357ae8;
+}
+
+.fc-day-grid-event {
+    background-color: #4285f4;
+    color: #ffffff;
+    border: 1px solid #4285f4;
+}
+
+.fc-day-grid-event:hover {
+    background-color: #357ae8;
+    border: 1px solid #357ae8;
+}
+
+.fc-time-grid-event {
+    background-color: #4285f4;
+    color: #ffffff;
+    border: 1px solid #4285f4;
+}
+
+.fc-time-grid-event:hover {
+    background-color: #357ae8;
+    border: 1px solid #357ae8;
+}
+
+.fc-list-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    margin: 5px 0;
+}
+
+.fc-list-item:hover {
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+}

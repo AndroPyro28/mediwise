@@ -33,9 +33,7 @@ if (logged_in()) {
         <div class="inner"><center>
             <h3>Appointment</h3></center>
         </div>
-        <a href="#top" class="small-box-footer ">
-                Create Appointment <i class="fas fa-plus-square"></i>
-         </a>
+      
     </div>
 </div>
 

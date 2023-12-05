@@ -556,3 +556,6 @@ body {
 .credits a:hover {
   text-decoration: underline;
 }
+input {
+  border:none;
+}
