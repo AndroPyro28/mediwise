@@ -52,7 +52,7 @@
                     <div class="col-12 col-sm-6" style="flex flex-direction: column;">
                       <label for=""> Firstname</label>
                       <input class="multisteps-form__input form-control" type="text" placeholder="First Name"
-                        id="first_name" />
+                        id="first_name" required />
                         <span style="color:red;" class="first_name_error_message"></span>
                     </div>
 
@@ -144,7 +144,7 @@
                       <label for="">Barangay</label>
                       <!-- <div class="col-6 col-sm-6 mt-4 mt-sm-0">   -->
                       <select class="multisteps-form__select form-control" id="barangay" name="barangay" required>
-                        <option selected="selected">Barangay</option>
+                        <option selected="">Barangay</option>
                         <option value="1">174</option>
                         <option value="2">175</option>
                         <option value="3">176</option>
