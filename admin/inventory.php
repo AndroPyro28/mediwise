@@ -89,9 +89,10 @@
                 <label for="barangay">Barangay</label>
                     <select class="form-control barangay" name="barangay" class=""required>
                     <option value=""></option>
-                    <option value="1">176</option>
-                    <option value="2">177</option>
-                    <option value="2">178</option>
+                    <option value="1">174</option>
+                    <option value="2">175</option>
+                    <option value="3">176</option>
+                    <option value="4">178</option>
                     </select>
                 <br>
                 <button type="submit" class="addItemBtn">Add Item</button>

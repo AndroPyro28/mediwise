@@ -15,7 +15,7 @@
   <title>Calendar</title>
 </head>
 
-<body style="display: flex; flex-direction: column; background:rgb(219, 243, 219);">
+<body style="display: flex; flex-direction: column; background-color: #ffefd7;">
 
   <div class="container">
     

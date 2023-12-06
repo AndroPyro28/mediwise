@@ -12,7 +12,7 @@
 
         <title>MediWise</title>
     </head>
-    <body>
+    <body style="background-color: #ffefd7;">
         <!--=============== HEADER ===============-->
         <header class="header" id="header">
             <nav class="nav container">

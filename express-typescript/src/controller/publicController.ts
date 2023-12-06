@@ -43,7 +43,6 @@ class PublicController {
 
 
     if(!first_name ||
-      !middle_name ||
       !last_name ||
       !birthdate ||
       !contactNo ||
@@ -59,10 +58,20 @@ class PublicController {
       return res.status(400).json({message:"Fill out all the required fields", success: false});
     }
 
-    let pattern = /^[A-Za-z\s]*$/;
+    if(!/^[A-Za-z\s]*$/.test(first_name) || !/^[A-Za-z\s]*$/.test(last_name) || !/^[A-Za-z\s]*$/.test(last_name) || !/^[A-Za-z\s]*$/.test(suffix)) {
+      return res.status(400).json({message:"firstname, lastname, middlename, suffix must have letters only", success: false});
+    }
+    if(!contactNo.startsWith('0') || (contactNo.length < 11 || contactNo.length > 11)) {
+      return res.status(400).json({message:"invalid contact number", success: false});
+    }
 
-    if(!pattern.test(first_name) || !pattern.test(last_name) || !pattern.test(last_name)) {
-      return res.status(400).json({message:"firstname, lastname, middlename must have letters only", success: false});
+    if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      return res.status(400).json({message:"invalid email", success: false});
+
+    }
+
+    if(!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)) {
+      return res.status(400).json({message:"invalid password pattern", success: false});
     }
     
     const salt = await bcrypt.genSalt(10)

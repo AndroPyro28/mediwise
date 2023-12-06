@@ -80,10 +80,10 @@
         <label for="barangay">Barangay</label>
         <select class="form-control" name="barangay" required>
           <option value=""></option>
-          <option value="174">174</option>
-          <option value="175">175</option>
-          <option value="178 A">178 A</option>
-          <option value="178 B">178 B</option>
+          <option value="1">174</option>
+          <option value="2">175</option>
+          <option value="3">176</option>
+          <option value="4">178</option>
         </select>
       </div>
     </div> 
