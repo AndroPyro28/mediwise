@@ -1,3 +1,17 @@
+<?php
+include '../connectMySQL.php';
+include '../loginverification.php';
+if (logged_in()) {
+    $session_user_id = $_SESSION['user_id'];
+    if($_SESSION['role'] === 'Admin')  {
+        header("location:../admin/index.php");
+      }
+      if($_SESSION['role'] === 'Doctor') {
+        header("location:../doctor/index.php");
+      }
+} 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

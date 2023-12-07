@@ -1,3 +1,21 @@
+
+<?php
+include './connectMySQL.php';
+include './loginverification.php';
+if (logged_in()) {
+    $session_user_id = $_SESSION['user_id'];
+
+    if($_SESSION['role'] === 'Admin')  {
+      header("location:./admin/index.php");
+    }
+    if($_SESSION['role'] === 'Doctor') {
+      header("location:./doctor/index.php");
+    }
+} else {
+  header('location/mediwise/index.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -138,7 +156,6 @@
                       <input class="multisteps-form__input form-control" type="number" placeholder="contact Number" required
                         id="contactNo" name="contactNo" required max="11" />
                         <span style="color:red;" class="contactNo_error_message"></span>
-
                     </div>
                     <div class="col-12 col-sm-6" style="flex flex-direction: column;">
                       <label for="">Barangay</label>

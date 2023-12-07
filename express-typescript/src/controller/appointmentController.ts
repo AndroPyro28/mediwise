@@ -64,10 +64,20 @@ class AppointmentController {
     const appointments = await prisma.appointment.findMany({
       where: {
         patient_id: req.user.patient_id
+      },
+    })
+
+    const data = appointments?.map((appointment) => {
+      const updatedAt = moment.utc(new Date(appointment.updatedAt)).tz("Asia/Manila").format();
+      const createdAt = moment.utc(new Date(appointment.createdAt)).tz("Asia/Manila").format();
+      return {
+        ...appointment,
+        createdAt,
+        updatedAt
       }
     })
 
-    return res.status(201).json(appointments);
+    return res.status(201).json({data:data, success:true});
     } catch (error) {
       console.error(error)
       return res.status(500).json({

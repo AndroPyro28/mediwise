@@ -69,11 +69,12 @@ if (logged_in()) {
                 </tr></thead><tbody>";
   
                 while ($row = $result->fetch_assoc()) {
+                  $formattedDateTime = date('F j, Y \a\t h:i A', strtotime($row['date']));
                   echo "<tr role='row'>";
                   echo "<td>" . $row['appointment_id'] . "</td>";
                   echo "<td>" . $row['description'] . "</td>";
                   echo "<td>" . $row['doctor_name'] . "</td>";
-                  echo "<td>" . $row['date'] . "</td>";
+                  echo "<td>" . $formattedDateTime . "</td>";
                   echo "<td>" . $row['request_status'] . "</td>";
                   if($row['request_status'] === 'PENDING') {
                     echo "<td> 

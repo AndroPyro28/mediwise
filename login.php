@@ -1,3 +1,19 @@
+<?php
+include './connectMySQL.php';
+include './loginverification.php';
+if (logged_in()) {
+    $session_user_id = $_SESSION['user_id'];
+    if($_SESSION['role'] === 'Admin')  {
+      header("location:./admin/index.php");
+    }
+    if($_SESSION['role'] === 'Doctor') {
+      header("location:./doctor/index.php");
+    }
+} else {
+  header('location/mediwise/index.php');
+}
+?>
+
 <html lang="en">
 
 <head>
@@ -140,6 +156,9 @@
       this.setSelectionRange(c, c);
     });
   </script>
+
+<script src="./user/reverseAuth.js"></script>
+
 
 </body>
 

@@ -32,6 +32,7 @@ model appointment {
   date           DateTime
   status         String   @default("PENDING") @db.VarChar(255)
   request_status String   @default("PENDING") @db.VarChar(255)
+  hasSeen        Boolean @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @default(now()) @updatedAt
 }
