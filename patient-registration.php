@@ -154,7 +154,7 @@ if (logged_in()) {
                     <div class="col-12 col-sm-6" style="flex flex-direction: column;">
                       <label for="">Contact No.</label>
                       <input class="multisteps-form__input form-control" type="number" placeholder="contact Number" required
-                        id="contactNo" name="contactNo" required max="11" />
+                        id="contactNo" name="contactNo" required maxlength="11" />
                         <span style="color:red;" class="contactNo_error_message"></span>
                     </div>
                     <div class="col-12 col-sm-6" style="flex flex-direction: column;">
@@ -277,7 +277,7 @@ if (logged_in()) {
 
       first_name_node.addEventListener('input', (e) => {
         let pattern = /^[A-Za-z\s]*$/;
-
+        e.target.value = e.target.value.replace(/[^A-Za-z ]/g, '');
         if(!pattern.test(e.target.value) || e.target.value.length <= 0) {
           document.querySelector('.first_name_error_message').textContent = "Letter only"
         } else {
@@ -287,7 +287,7 @@ if (logged_in()) {
 
       middle_name_node.addEventListener('input', (e) => {
         let pattern = /^[A-Za-z\s]*$/;
-
+        e.target.value = e.target.value.replace(/[^A-Za-z ]/g, '');
         if(!pattern.test(e.target.value || e.target.value.length <= 0)) {
           document.querySelector('.middle_name_error_message').textContent = "Letter only"
         } else {
@@ -297,6 +297,7 @@ if (logged_in()) {
 
       suffix_node.addEventListener('input', (e) => {
         let pattern = /^[A-Za-z\s]*$/;
+        e.target.value = e.target.value.replace(/[^A-Za-z ]/g, '');
         if(!pattern.test(e.target.value || e.target.value.length <= 0)) {
           document.querySelector('.suffix_error_message').textContent = "Letter only"
         } else {
@@ -306,6 +307,9 @@ if (logged_in()) {
 
       last_name_node.addEventListener('input', (e) => {
         let pattern = /^[A-Za-z\s]*$/;
+
+        e.target.value = e.target.value.replace(/[^A-Za-z ]/g, '');
+
         if(!pattern.test(e.target.value) || e.target.value.length <= 0) {
           document.querySelector('.last_name_error_message').textContent = "Letter only"
         } else {
@@ -316,8 +320,13 @@ if (logged_in()) {
       contactNo_node.addEventListener('input', (e) => {
         document.querySelector('.contactNo_error_message').textContent = ""
 
-        if(!e.target.value.startsWith('0') || e.target.value.length <= 0) {
-          document.querySelector('.contactNo_error_message').textContent = "should start with 0"
+        if (e.target.value.length > 11) {
+          e.target.value = e.target.value.slice(0, 11); // Trim input to 11 characters
+        }
+
+
+        if(!e.target.value.startsWith('09') || e.target.value.length <= 0) {
+          document.querySelector('.contactNo_error_message').textContent = "should start with 09*********"
         }
         else if(e.target.value.length < 11 || e.target.value.length > 11) {
           document.querySelector('.contactNo_error_message').textContent = "11 digits number only"
