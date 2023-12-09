@@ -121,6 +121,15 @@ if (logged_in()) {
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="#" onclick="load_appointment()" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Appointment
+              </p>
+            </a>
+          </li>
+
               <li class="nav-item">
                 <a href="#" onclick="load_inventory()" class="nav-link">
                   <i class="nav-icon fas fa-cubes"></i>
@@ -156,7 +165,9 @@ if (logged_in()) {
             function load_doctor() {
                   document.getElementById("pgm1").innerHTML='<object type="text/html" data="doctor.php" width="100%" height="100%"></object>';
             }
-            
+            function load_appointment() {
+                  document.getElementById("pgm1").innerHTML='<object type="text/html" data="appointment.php" width="100%" height="100%"></object>';
+            }
             function load_inventory() {
               document.getElementById("pgm1").innerHTML = '<object type="text/html" data="inventory.php" width="100%" height="100%"></object>';
             }

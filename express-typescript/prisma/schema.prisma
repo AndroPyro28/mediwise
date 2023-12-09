@@ -32,7 +32,8 @@ model appointment {
   date           DateTime
   status         String   @default("PENDING") @db.VarChar(255)
   request_status String   @default("PENDING") @db.VarChar(255)
-  hasSeen        Boolean @default(false)
+  image_path     String?  
+  hasSeen        Boolean  @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @default(now()) @updatedAt
 }
@@ -67,20 +68,20 @@ model doctor {
 }
 
 model work_schedule {
-  work_schedule_id    Int      @id @default(autoincrement())
-  title      String
+  work_schedule_id Int    @id @default(autoincrement())
+  title            String
 
   isArchived Boolean @default(false)
 
-  start DateTime?
-  end   DateTime?
-  allDay    Boolean
+  start  DateTime?
+  end    DateTime?
+  allDay Boolean
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // doctor who owns the work schedule
   doctor_id Int
-  doctor      doctor @relation(fields: [doctor_id], references: [doctor_id])
+  doctor    doctor   @relation(fields: [doctor_id], references: [doctor_id])
 }
 
 model event {

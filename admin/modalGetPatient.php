@@ -14,7 +14,7 @@ $birthdate = "";
 $status="";
 $barangay = "";
 
-$query = "select * from patient where patient_id = '$user_id'";
+$query = "select patient.*, barangay.* from patient INNER JOIN barangay ON barangay.barangay_id = patient.barangay_id where patient_id = '$user_id'";
     $result = $conn->query($query);
         while($row = $result->fetch_assoc())
         {
@@ -28,7 +28,8 @@ $query = "select * from patient where patient_id = '$user_id'";
             $contact_number = $row['contact_number'];
             $status = $row['status'];
             $birthdate = $row['birthdate'];
-            $barangay= $row['barangay'];
+            $barangay_id = $row['barangay_id'];
+            $barangay_name = $row['name'];
             }
 ?>
 <!DOCTYPE html>
@@ -153,7 +154,7 @@ $query = "select * from patient where patient_id = '$user_id'";
       <div class="form_group">
         <label for="contact_number">Contact Number</label>
         <input class="form-control" type="number" name="contact_number" id="contact_number" value="<?php echo $contact_number;?>" maxlength="11"  required/ >
-        <input class="form-control" type="hidden" name="user_id" id="user_id" value="<?php echo $user_id;?>" required/ >
+        <input class="form-control" type="hidden" name="user_id" id="user_id" value="<?php echo $user_id;?>" required/>
       </div>
     </div> 
   </div> 
@@ -162,12 +163,11 @@ $query = "select * from patient where patient_id = '$user_id'";
     <div class="col-sm-12 col-12"> 
       <div class="form_group">
         <label for="barangay">Barangay</label>
-        <select class="form-control" name="barangay" required>
-          <option value="<?php echo $barangay;?>"><?php echo $barangay;?></option>
-          <option value="174">174</option>
-          <option value="175">175</option>
-          <option value="178 A">178 A</option>
-          <option value="178 B">178 B</option>
+        <select class="form-control" name="barangay" required >
+          <option value="1">174</option>
+          <option value="2">175</option>
+          <option value="3">176</option>
+          <option value="4">178</option>
         </select>
       </div>
     </div> 
