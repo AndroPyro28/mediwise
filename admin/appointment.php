@@ -217,8 +217,10 @@ $result = $conn->query($query);
         function closeModal() {
             $('.modal').css('display', 'none');
         }
+        let appointmentItems = {};
 
         function displayModalItems(appointmentId, barangayId) {
+            appointmentItems={}
             // Make an AJAX request to fetch items for the given appointmentId
             $.ajax({
                 url: 'get_appointment_items.php', // Create this PHP file to handle the AJAX request
@@ -253,10 +255,8 @@ $result = $conn->query($query);
                 }
             });
         }
-        const appointmentItems = {};
         
         function incrementQuantity(itemId, appointmentId, barangayId, limit) {
-
             if (!appointmentItems[itemId]) {
                 if(!limit <= 0) {
                     appointmentItems[itemId] = { quantity: 1 };
@@ -286,19 +286,23 @@ $result = $conn->query($query);
         }
 
         $('#submit-appointment-items').on('click', function () {
-            console.log('clicked', appointmentIds, barangayId, appointmentItems)
-            $.ajax({
+            if(Object.keys(appointmentItems).length === 0) {
+                return ;
+            } else {
+                $.ajax({
                 url: 'save_appointment_items.php', // Create this PHP file to handle the AJAX request
                 method: 'POST',
                 data: { appointmentId: appointmentIds, barangayId, appointmentItems },
                 success: function (response) {
-                    console.log(response)
+                    alert('Item has been modified')
+                    $('.modal').css('display', 'none');
                 },
                 error: function(response) {
                     console.log(response)
-
                 }
             });
+            }
+            
         })
 
     </script>

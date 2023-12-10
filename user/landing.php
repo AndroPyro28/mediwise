@@ -16,7 +16,8 @@
         <!--=============== HEADER ===============-->
         <header class="header" id="header">
             <nav class="nav container">
-                <a href="#" class="nav__logo">MediWise</a>
+                <img src="../public/images/bhaLogo.png" class="w-16 h-16 object-cover" alt="">
+
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">

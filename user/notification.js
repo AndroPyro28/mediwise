@@ -9,7 +9,8 @@ const getAppointments = async () => {
 
   const notificationList = document.querySelector("#notification-list");
   const response = await result.json();
-
+  const notificationCircle = document.querySelector('notificationCircle')
+  console.log(response.data)
   response.data.forEach((appointment) => {
     if (appointment?.request_status !== "PENDING") {
       const { date:dateCreatedAt, time:timeCreatedAt } = dateAndTimeParser(appointment.createdAt);

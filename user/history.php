@@ -20,6 +20,7 @@ if (logged_in()) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="123.css">
     <link rel="stylesheet" href="./notification.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 
 
     <style>
@@ -55,7 +56,7 @@ if (logged_in()) {
 <body>
     <header class="header" id="header">
         <nav class="nav container">
-            <a href="#" class="nav__logo">MediWise</a>
+            <img src="../public/images/bhaLogo.png" class="w-16 h-16 object-cover" alt="">
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
@@ -72,6 +73,9 @@ if (logged_in()) {
                     <li class="nav__item">
                         <a href="doctor-list.php" class="nav__link">Doctors</a>
                     </li>
+                    <li class="nav__item">
+                        <a href="upload-prescription.php" class="nav__link">Upload prescriptions</a>
+                    </li>
 
 
                     </div>
@@ -79,6 +83,8 @@ if (logged_in()) {
             </div>
 
             <div id="notification-icon" onclick="toggleNotificationList()" style="position:relative;">
+            <div class="w-2 h-2 bg-yellow-500 rounded-full ml-auto hidden" id="notificationCircle"></div>
+
                 <img
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAWVJREFUSEvN1TFIlVEYxvGfuBkOitBQWgYKQkN7DYKKQ4uiiM6ubSm1qYMICo7i3BIi4ioqCgnuDgoOhkKgBIJB0BBUfPF9d/juPfc7V7noOz/n+T/nPe85p0Gdq6HO/moBjOFTGmgCmzHhYgBNmMQ8mlPTH5jDKn5VAxUB+vEZbQGT7xjFQQhSDTCMdTRiAyvYS4368A5D+I232KkECQEe4wyP8B7LgYQzmMUVuvAzrwsBljCFNYwXHOYWBkNBQoALdOAVjgoAA9jGIV7H7uBvKkz6/6cA0Ipr3KClVkDRlGV+WaAyfcgguCCwm4cFeIbzNGmtLXqOZEBKlTd4ii/oxDFexrw3OEEPvuINLrN1ecApuisJC0BP0mAv8sHygOyw2vEtMn0mq9jaEKBG7zJ5yTcP2EfvHd13kdzu/xU7JbdmxgI+YiFH+YDFInIsINElL+xIapj8D9PIhiLIiQUUBb0/wD/3oz4ZE6fqJQAAAABJRU5ErkJggg==" />
 
@@ -133,7 +139,7 @@ if (logged_in()) {
 <script>
 // Use JavaScript to fetch and populate data here
 // Get the table body
-const main = async () => {
+const getHistory = async () => {
     const token = window.localStorage.getItem("token");
     const result = await fetch("http://localhost:3001/appointments/history", {
       method: "GET",
@@ -141,7 +147,21 @@ const main = async () => {
     });
     
     const data = await result.json();
+    const dateAndTimeParser = (dateTimeLocal) => {
+  const date = new Date(dateTimeLocal)?.toISOString().slice(0, 10);
 
+  const time = new Date(dateTimeLocal)?.toLocaleString("en-US", {
+    timeZone: "Asia/Manila",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  return {
+    date,
+    time,
+  };
+};
     const {data: history} = data
     const tableBody = document.querySelector('#historyTable tbody');
 
@@ -164,23 +184,22 @@ if(history.length > 0) {
     divMessageContainer.innerHTML += `<h2>No past appointment found!</h2>`
 }
 
-
 }
-window.addEventListener('load', main)
+window.addEventListener('load', getHistory)
 
 </script>
 
 <script>
-            const logoutBtn = document.querySelector('#logoutBtn');
+    const logoutBtn = document.querySelector('#logoutBtn');
+    
+    logoutBtn.addEventListener('click', () => {
+        window.localStorage.removeItem('token')
+        window.location.reload()
+    })
+    </script>
 
-            logoutBtn.addEventListener('click', () => {
-                window.localStorage.removeItem('token')
-                window.location.reload()
-            })
-        </script>
+<script src="./auth.js"></script>
 
-        <script src="./auth.js"></script>
-        
-        <script src="./notification.js"></script>
+<script src="./notification2.js"></script>
 </body>
 </html>

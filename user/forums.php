@@ -8,12 +8,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 <link rel="stylesheet" href="123.css">
 <link rel="stylesheet" href="./notification.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 
 </head>
 <body>
   <header class="header" id="header">
     <nav class="nav container">
-        <a href="#" class="nav__logo">MediWise</a>
+        <img src="../public/images/bhaLogo.png" class="w-16 h-16 object-cover" alt="">
 
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
@@ -30,12 +31,16 @@
                 <li class="nav__item">
                     <a href="doctor-list.php" class="nav__link">Doctors</a>
                 </li>
+                <li class="nav__item">
+                        <a href="upload-prescription.php" class="nav__link">Prescriptions</a>
+                </li>
 
 
                 </div>
             </div>
         </div>
         <div id="notification-icon" onclick="toggleNotificationList()" style="position:relative;">
+        <div class="w-2 h-2 bg-yellow-500 rounded-full ml-auto hidden" id="notificationCircle"></div>
                 <img
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAWVJREFUSEvN1TFIlVEYxvGfuBkOitBQWgYKQkN7DYKKQ4uiiM6ubSm1qYMICo7i3BIi4ioqCgnuDgoOhkKgBIJB0BBUfPF9d/juPfc7V7noOz/n+T/nPe85p0Gdq6HO/moBjOFTGmgCmzHhYgBNmMQ8mlPTH5jDKn5VAxUB+vEZbQGT7xjFQQhSDTCMdTRiAyvYS4368A5D+I232KkECQEe4wyP8B7LgYQzmMUVuvAzrwsBljCFNYwXHOYWBkNBQoALdOAVjgoAA9jGIV7H7uBvKkz6/6cA0Ipr3KClVkDRlGV+WaAyfcgguCCwm4cFeIbzNGmtLXqOZEBKlTd4ii/oxDFexrw3OEEPvuINLrN1ecApuisJC0BP0mAv8sHygOyw2vEtMn0mq9jaEKBG7zJ5yTcP2EfvHd13kdzu/xU7JbdmxgI+YiFH+YDFInIsINElL+xIapj8D9PIhiLIiQUUBb0/wD/3oz4ZE6fqJQAAAABJRU5ErkJggg==" />
 
@@ -139,7 +144,7 @@
             })
         </script>
         <script src="./auth.js"></script>
-        <script src="./notification.js"></script>
+        <script src="./notification2.js"></script>
 
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>

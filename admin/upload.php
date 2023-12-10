@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
         // Update the database with the file path
         $updateQuery = "UPDATE appointment SET image_path = '$targetFilePath' WHERE appointment_id = $appointmentId";
         $conn->query($updateQuery);
-
         // Redirect back to the appointments page or perform any other action
         header("Location: appointment.php");
         exit();

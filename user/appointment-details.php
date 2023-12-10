@@ -17,6 +17,8 @@ if (logged_in()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
     <title>Appointment Details</title>
     <style>
         /* Your existing styles remain the same */
@@ -127,18 +129,19 @@ if (isset($_GET['id'])) {
 
 <div class="appointment-container">
     <h2>Appointment Details</h2>
+  
     <div class="appointment-details">
         <p class="detail-label">Appointment Date:</p>
         <p><?php echo $formattedDateTime; ?></p>
 
         <p class="detail-label">Doctor:</p>
-        <p><?php echo $doctor; ?></p>
+        <p>Dr. <?php echo $status;?></p>
 
         <p class="detail-label">Description:</p>
-        <p><?php echo $description; ?></p>
+        <p><?php echo  $doctor;?></p>
 
         <p class="detail-label">Status:</p>
-        <p class="status"><?php echo $status; ?></p>
+        <p class="font-semibold"><?php echo  $description; ?></p>
     </div>
 
     <button class="back-button" onclick="goBack()">Go Back</button>

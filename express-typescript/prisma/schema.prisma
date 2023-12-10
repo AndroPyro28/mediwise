@@ -107,28 +107,39 @@ model event {
   updatedAt   DateTime @default(now()) @updatedAt
 }
 
+model prescription {
+  prescription_id Int    @id @default(autoincrement())
+  image           String @db.LongText
+  patient_id Int?
+  barangay   patient? @relation(fields: [patient_id], references: [patient_id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
 model patient {
-  patient_id     Int           @id @default(autoincrement())
-  username       String        @db.VarChar(255)
-  password       String        @db.VarChar(255)
-  first_name     String        @db.VarChar(255)
-  middle_name    String?       @db.VarChar(255)
-  last_name      String        @db.VarChar(255)
-  suffix         String?       @db.VarChar(255)
-  birthdate      DateTime      @db.Date
-  contact_number String        @db.VarChar(255)
-  street         String?       @db.VarChar(255)
-  homeNo         String?       @db.VarChar(255)
-  city           String?       @db.VarChar(255)
-  gender         String?       @db.VarChar(255)
-  zip            String?       @db.VarChar(255)
-  email          String        @db.VarChar(255)
-  status         String        @default("ACTIVE") @db.VarChar(100)
+  patient_id     Int            @id @default(autoincrement())
+  username       String         @db.VarChar(255)
+  password       String         @db.VarChar(255)
+  first_name     String         @db.VarChar(255)
+  middle_name    String?        @db.VarChar(255)
+  last_name      String         @db.VarChar(255)
+  suffix         String?        @db.VarChar(255)
+  birthdate      DateTime       @db.Date
+  contact_number String         @db.VarChar(255)
+  street         String?        @db.VarChar(255)
+  homeNo         String?        @db.VarChar(255)
+  city           String?        @db.VarChar(255)
+  gender         String?        @db.VarChar(255)
+  zip            String?        @db.VarChar(255)
+  email          String         @db.VarChar(255)
+  status         String         @default("ACTIVE") @db.VarChar(100)
   appointments   appointment[]
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @default(now()) @updatedAt
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @default(now()) @updatedAt
   barangay_id    Int?
-  barangay       barangay?     @relation(fields: [barangay_id], references: [barangay_id])
+  barangay       barangay?      @relation(fields: [barangay_id], references: [barangay_id])
+  prescription   prescription[]
 }
 
 model barangay {
