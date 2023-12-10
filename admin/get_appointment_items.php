@@ -6,11 +6,12 @@ include '../connectMySQL.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $appointmentId = $_POST['appointmentId'];
+    $barangayId = $_POST['barangayId'];
 
     // Use this $appointmentId to fetch items related to the appointment from the database
 
     // Example query
-    $query = "SELECT * FROM inventory";
+    $query = "SELECT * FROM inventory  WHERE barangay_id = '$barangayId'";
     $result = $conn->query($query);
 
     $items = array();

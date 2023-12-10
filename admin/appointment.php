@@ -90,7 +90,8 @@ $result = $conn->query($query);
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
         <!-- Modal container for two sides -->
-        <div class="modal-container flex w-11/12 md:max-w-3xl mx-auto rounded shadow-lg z-50 overflow-y-auto relative bg-white">
+        <div
+            class="modal-container flex w-11/12 md:max-w-3xl mx-auto rounded shadow-lg z-50 overflow-y-auto relative bg-white">
 
             <!-- Left side content (Appointment Details) -->
             <div class="w-1/2 py-4 px-6">
@@ -103,6 +104,7 @@ $result = $conn->query($query);
                 <p><strong>Description:</strong> <span id="modalDescription"></span></p>
                 <p><strong>Doctor's Name:</strong> <span id="modalDocName"></span></p>
                 <p><strong>Patient's Name:</strong> <span id="modalPatientName"></span></p>
+                <p><strong>Barangay:</strong> <span id="modalBarangayName"></span></p>
                 <p><strong>Date:</strong> <span id="modalDate"></span></p>
                 <p><strong>Status:</strong> <span id="modalStatus"></span></p>
 
@@ -121,11 +123,11 @@ $result = $conn->query($query);
             </div>
 
             <!-- Right side content (List of Items) -->
-            <div class="overflow-hidden py-4 px-6" id="modalItemListContainer">
+            <div class="overflow-hidden py-4 px-6 relative" id="modalItemListContainer">
                 <h2 class="text-2xl font-semibold mb-4">List of Items</h2>
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead>
-                        <tr>
+                        <tr class="flex items-center">
                             <th
                                 class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 ID</th>
@@ -141,7 +143,10 @@ $result = $conn->query($query);
                         </tr>
                     </thead>
                     <tbody id="modalItemList"></tbody>
+
                 </table>
+                <button id="submit-appointment-items"
+                    class="bg-blue-500 text-white px-4 py-2 rounded mt-2 absolute right-10 bottom-10">Save</button>
             </div>
         </div>
     </div>
@@ -150,13 +155,17 @@ $result = $conn->query($query);
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
+        let appointmentIds;
+        let barangayId;
+
         $(document).ready(function () {
             // Initialize DataTable
             $('#appointmentsTable').DataTable();
 
             // Event delegation for dynamically added elements
             $(document).on('click', '.view-details-btn', function () {
-                var appointmentId = $(this).data('appointment-id');
+                const appointmentId = $(this).data('appointment-id');
+                appointmentIds = appointmentId
 
                 // Make an AJAX request to fetch appointment details and items
                 $.ajax({
@@ -165,7 +174,6 @@ $result = $conn->query($query);
                     data: { appointmentId: appointmentId },
                     success: function (response) {
                         var data = JSON.parse(response);
-                        console.log(data)
                         // Set modal content (left side)
                         $('#modalAppointmentId').text(data.appointmentId);
                         $('#modalDescription').text(data.description);
@@ -173,6 +181,9 @@ $result = $conn->query($query);
                         $('#modalDate').text(data.date);
                         $('#modalStatus').text(data.status);
                         $('#modalPatientName').text(data.patientName);
+                        $('#modalBarangayName').text(data.barangayName);
+
+                        barangayId = data.barangayId
 
                         // Display the image or a message
                         var imageContainer = $('#modalImageContainer');
@@ -186,7 +197,7 @@ $result = $conn->query($query);
                         $('#appointmentIdInput').val(data.appointmentId);
 
                         // Set modal items content (right side)
-                        displayModalItems(data.appointmentId);
+                        displayModalItems(data.appointmentId, data.barangayId);
 
                         // Display the modal
                         $('.modal').css('display', 'flex');
@@ -207,52 +218,89 @@ $result = $conn->query($query);
             $('.modal').css('display', 'none');
         }
 
-        function displayModalItems(appointmentId) {
-        // Make an AJAX request to fetch items for the given appointmentId
-        $.ajax({
-            url: 'get_appointment_items.php', // Create this PHP file to handle the AJAX request
-            method: 'POST',
-            data: { appointmentId: appointmentId },
-            success: function (response) {
-                var items = JSON.parse(response);
+        function displayModalItems(appointmentId, barangayId) {
+            // Make an AJAX request to fetch items for the given appointmentId
+            $.ajax({
+                url: 'get_appointment_items.php', // Create this PHP file to handle the AJAX request
+                method: 'POST',
+                data: { appointmentId: appointmentId, barangayId },
+                success: function (response) {
+                    var items = JSON.parse(response);
 
-                // Display items in the modal table
-                var itemList = $('#modalItemList');
+                    // Display items in the modal table
+                    var itemList = $('#modalItemList');
 
-                itemList.empty(); // Clear previous items
-                if (items.length > 0) {
-                    items.forEach(function (item) {
-                        itemList.append('<tr>' +
-                            '<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">' + item.inventory_id + '</td>' +
-                            '<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">' + item.name + '</td>' +
-                            '<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">' + item.quantity + '</td>' +
-                            '<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex gap-x-3">' +
-                            '<button class="bg-red-500 text-white px-2 py-1 rounded" onclick="decrementQuantity(' + item.inventory_id + ')">-</button>' +
-                            '<button class="bg-blue-500 text-white px-2 py-1 rounded mr-2" onclick="incrementQuantity(' + item.inventory_id + ')">+</button>' +
-                            '</td>' +
-                            '</tr>');
-                    });
-                } else {
-                    itemList.html('<tr><td colspan="4">No items available</td></tr>');
+                    itemList.empty(); // Clear previous items
+                    if (items.length > 0) {
+                        items.forEach(function (item) {
+                            itemList.append('<tr class="flex items-center">' +
+                                '<td class="px-6 py-4 whitespace-no-wrap flex-1 border-gray-200 text-center ">' + item.inventory_id + '</td>' +
+                                '<td class="px-6 py-4 whitespace-no-wrap flex-1 border-gray-200 text-center ">' + item.name + '</td>' +
+                                '<td class="px-6 py-4 whitespace-no-wrap flex-1 border-gray-200 text-center ">' + item.quantity + '</td>' +
+                                '<td class="px-6 py-4 whitespace-no-wrap flex-1 border-gray-200 flex gap-x-3">' +
+                                '<button class="bg-red-500 text-white px-2 py-1 rounded" onclick="decrementQuantity(' + item.inventory_id + ', ' + appointmentId + ', ' + barangayId + ', ' + item.quantity + ')">-</button>' +
+                                '<span class="px-2 py-1" id="inventory-id-' + item.inventory_id + '">0</span>' +
+                                '<button class="bg-blue-500 text-white px-2 py-1 rounded mr-2" onclick="incrementQuantity(' + item.inventory_id + ', ' + appointmentId + ', ' + barangayId + ', ' + item.quantity + ')">+</button>' +
+                                '</td>' +
+                                '</tr>');
+                        });
+                    } else {
+                        itemList.html('<tr><td colspan="4">No items available</td></tr>');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error fetching appointment items:', error);
                 }
-            },
-            error: function (error) {
-                console.error('Error fetching appointment items:', error);
+            });
+        }
+        const appointmentItems = {};
+        
+        function incrementQuantity(itemId, appointmentId, barangayId, limit) {
+
+            if (!appointmentItems[itemId]) {
+                if(!limit <= 0) {
+                    appointmentItems[itemId] = { quantity: 1 };
+                }
+            } else {
+                if (limit > appointmentItems[itemId].quantity && limit !== 0) {
+                    appointmentItems[itemId].quantity++;
+                }
             }
-        });
-    }
 
-    // Increment quantity function
-    function incrementQuantity(itemId) {
-        // Add logic to increment quantity in the database or perform other actions
-        console.log('Increment quantity for item with ID:', itemId);
-    }
+            const item = document.querySelector(`#inventory-id-${itemId}`)
+            item.textContent = appointmentItems[itemId].quantity
 
-    // Decrement quantity function
-    function decrementQuantity(itemId) {
-        // Add logic to decrement quantity in the database or perform other actions
-        console.log('Decrement quantity for item with ID:', itemId);
-    }
+        }
+
+        // Decrement quantity function
+        function decrementQuantity(itemId, appointmentId, barangayId, limit) {
+
+            if (!appointmentItems[itemId]) {
+                appointmentItems[itemId] = { quantity: 0 }; // Ensure quantity doesn't go below 0
+            } else if (appointmentItems[itemId].quantity > 0) {
+                appointmentItems[itemId].quantity--;
+            }
+
+            const item = document.querySelector(`#inventory-id-${itemId}`)
+            item.textContent = appointmentItems[itemId].quantity
+        }
+
+        $('#submit-appointment-items').on('click', function () {
+            console.log('clicked', appointmentIds, barangayId, appointmentItems)
+            $.ajax({
+                url: 'save_appointment_items.php', // Create this PHP file to handle the AJAX request
+                method: 'POST',
+                data: { appointmentId: appointmentIds, barangayId, appointmentItems },
+                success: function (response) {
+                    console.log(response)
+                },
+                error: function(response) {
+                    console.log(response)
+
+                }
+            });
+        })
+
     </script>
 
 </body>
