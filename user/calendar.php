@@ -19,12 +19,12 @@ if (logged_in()) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="" content="" />
   <meta name="keywords" content="calendar, events, reminders, javascript, html, css, " />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./calendar.css" />
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Calendar</title>
 </head>
@@ -89,14 +89,16 @@ if (logged_in()) {
         </div>
         <div class="add-event-body">
           <div class="add-event-input">
-            <input type="text" placeholder="title or description" class="event-name" />
-
+            <select name="event-name" class="event-name" id="event-name"style="border:none; border-radius:1px;outline:none; width:100%; height: 30px; font-size:15px">
+              <option value="General Checkup">General Checkup</option>
+              <option value="Follow up checkup">Follow up checkup</option>
+            </select>
           </div>
           <div class="add-event-input">
             <!-- <input type="text" placeholder="Name of Doctor" class="doctor-name" /> -->
             <select name="doctor_id" id="doctor_id" class="doctor_id doctor-name" style="border:none; border-radius:1px;outline:none; width:100%; height: 30px; font-size:15px"></select>
           </div>
-          <div class="add-event-input">
+          <div class="add-event-input" style="display:none;">
             <input type="text" placeholder="Time" class="event-time-from" />
           </div>
         </div>
@@ -115,7 +117,7 @@ if (logged_in()) {
   <script src="auth.js"></script>
   
   <!-- <script src="./calendar.js"></script> -->
-  <script src="./calendar2.js"></script>
+  <script src="./calendar.js"></script>
 
   <script>
     

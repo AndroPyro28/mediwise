@@ -57,19 +57,24 @@ const months = [
 
 let eventsArr = [];
 getEvents();
-
-async function getDoctors() {
+async function getDoctorsByDate(activeDay, month, year) {
   const token = window.localStorage.getItem("token");
-    const result = await fetch("http://localhost:3001/doctors", {
+    const result = await fetch("http://localhost:3001/work-schedules/getWorkSchedulesForUser", {
       // sending data to the server
-      method: "GET",
-      headers: { token },
+      method: "POST",
+      body: JSON.stringify({
+        activeDay, month, year
+      }),
+      headers: { "Content-type": "application/json", token },
     });
-    const data = await result.json()
-
+    const response = await result.json()
     const selectElem = document.querySelector('.doctor_id');
+    const displayDoctorsElem = document.querySelector('.doctor_list_container');
 
-    data.forEach(doctor => {
+    selectElem.innerHTML = ''
+    displayDoctorsElem.innerHTML = ''
+    response.data?.forEach(doctor => {
+      displayDoctorsElem.innerHTML += `<h2 style="font-size:1em; font-weight:400;">Dr. ${doctor.first_name} ${doctor.last_name}</h2>`
       const opt = document.createElement('option')
       opt.value = doctor.doctor_id
       opt.innerHTML = `Dr. ${doctor.first_name} ${doctor.last_name}`
@@ -79,10 +84,32 @@ async function getDoctors() {
     });
 }
 
+// async function getDoctors(activeDay, month, date, year) {
+//     console.log('yes', activeDay, month, year)
+//     const token = window.localStorage.getItem("token");
+//       const result = await fetch("http://localhost:3001/work-schedules/getWorkSchedules", {
+//         // sending data to the server
+//         method: "POST",
+//         body:JSON.stringify({activeDay, month, year}),
+//         headers: { token },
+//       });
+//       const data = await result.json()
+
+//       const selectElem = document.querySelector('.doctor_id');
+
+//       data.forEach(doctor => {
+//         const opt = document.createElement('option')
+//         opt.value = doctor.doctor_id
+//         opt.innerHTML = `Dr. ${doctor.first_name} ${doctor.last_name}`
+//         selectElem.appendChild(
+//           opt
+//         )
+//       });
+//   }
+
 
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
-getDoctors()
 
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
@@ -172,6 +199,7 @@ function addListner() {
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
     day.addEventListener("click", (e) => {
+        // dito mag cocode
       getActiveDay(e.target.innerHTML);
       updateEvents(Number(e.target.innerHTML));
       activeDay = Number(e.target.innerHTML);
@@ -212,6 +240,7 @@ function addListner() {
       } else {
         e.target.classList.add("active");
       }
+      getDoctorsByDate(activeDay, month, year)
     });
   });
 }
@@ -367,7 +396,7 @@ addEventSubmit.addEventListener("click", async () => {
   const eventTimeFrom = addEventFrom?.value;
   const eventDoctor = addEventDoctor.value;
 
-  if (eventTitle === "" || eventTimeFrom === "" || eventDoctor === "") {
+  if (eventTitle === "" || eventDoctor === "") {
     alert("Please fill all the fields");
     return;
   }
@@ -375,17 +404,17 @@ addEventSubmit.addEventListener("click", async () => {
   //check correct time format 24 hour
   const timeFromArr = eventTimeFrom.split(":");
   // const timeToArr = eventTimeTo.split(":");
-  if (
-    timeFromArr.length !== 2 ||
-    // timeToArr.length !== 2 ||
-    timeFromArr[0] > 23 ||
-    timeFromArr[1] > 59
-    // timeToArr[0] > 23 ||
-    // timeToArr[1] > 59
-  ) {
-    alert("Invalid Time Format");
-    return;
-  }
+  // if (
+  //   timeFromArr.length !== 2 ||
+  //   // timeToArr.length !== 2 ||
+  //   timeFromArr[0] > 23 ||
+  //   timeFromArr[1] > 59
+  //   // timeToArr[0] > 23 ||
+  //   // timeToArr[1] > 59
+  // ) {
+  //   alert("Invalid Time Format");
+  //   return;
+  // }
 
   const timeFrom = convertTime(eventTimeFrom);
   // const timeTo = convertTime(eventTimeTo);
@@ -398,6 +427,8 @@ addEventSubmit.addEventListener("click", async () => {
     method: "POST",
     body: JSON.stringify({
       activeDay,
+      year,
+      month,
       eventDoctor,
       doctor_id,
       newEvent: { title: eventTitle, time: eventTimeFrom },
@@ -406,13 +437,13 @@ addEventSubmit.addEventListener("click", async () => {
   });
 
   const data = await result.json();
-  await getEvents();
-
+  
   addEventWrapper.classList.remove("active");
-  addEventTitle.value = "";
-  addEventFrom.value = "";
-  addEventDoctor.value = ""
+  // addEventTitle.value = "";
+  // addEventFrom.value = "";
+  // addEventDoctor.value = ""
   // addEventTo.value = "";
+  await getEvents();
   updateEvents(activeDay);
   //select active day and add event class if not added
   const activeDayEl = document.querySelector(".day.active");
@@ -425,6 +456,7 @@ addEventSubmit.addEventListener("click", async () => {
 eventsContainer.addEventListener("click", async (e) => {
 
   if (e.target.classList.contains("event")) {
+    console.log(e.target.children[0])
     if (confirm("Are you sure you want to delete this event?")) {
       const token = localStorage.getItem("token");
       const appointmentId = e.target.children[0].dataset.id;
@@ -477,12 +509,13 @@ async function getEvents() {
       headers: { token },
     });
 
-    const data = await result.json();
+    const response = await result.json();
 
     // console.log('get events', data)
     eventsArr = [];
-    if (data.length > 0) {
-      data.forEach((event) => {
+    if (response.data.length > 0) {
+      response.data.forEach((event) => {
+        console.log(event)
         const currentDay = new Date(event.date).getDate();
         const currentMonth = new Date(event.date).getMonth() + 1;
         const currentYear = new Date(event.date).getFullYear();
@@ -512,15 +545,17 @@ async function getEvents() {
           });
         } else {
           const newEvent = {
+            id:event.appointment_id,
             title: event.description,
             time: currentTime,
           };
           eventData.events.push(newEvent);
           // eventsArr.push(eventData)
         }
+    console.log(eventsArr)
+
       });
     }
-
   } catch (error) {}
   //check if events are already saved in local storage then return event else nothing
 }

@@ -6,6 +6,7 @@
 
         <!--=============== BOXICONS ===============-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="landing.css">
@@ -54,8 +55,8 @@
             <img src="./public/images/mediwiseLogo.png" alt="" style="height:200px">
 
 
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
+                <div class="nav__menu " id="nav-menu">
+                    <ul class="nav__list sm:hidden block">
                         <li class="nav__item">
                             <a href="#home" class="nav__link active-link">Home</a>
                         </li>
@@ -73,20 +74,55 @@
                     </ul>
                 </div>
 
+                <button id="hamburger" data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                    </svg>
+                </button>
+
+    <div class="hidden flex-col absolute top-7 right-20 md:right-5" id="hamburger-content">
+      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          <a href="home" class="block py-2 px-3 text-white bg-green-400 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
+        </li>
+        
+        <li>
+          <a href="#about" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About us</a>
+        </li>
+        <li>
+          <a href="#services" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Guidelines</a>
+        </li>
+        <li>
+          <a href="#contact" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+        </li>
+        <li>
+          <a href="login.php" class="block py-2 px-3 text-white text-gray-900 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500">Login</a>
+        </li>
+      </ul>
+    </div>
+    
+
+                
+
                 <div class="nav__toggle" id="nav-toggle">
                     <i class='bx bx-grid-alt'></i>
                 </div>
 
                 <a href="login.php" class="button button__header">Login</a>
             </nav>
+
+   
+
+
         </header>
 
         <main class="main">
             <!--=============== HOME ===============-->
             <section class="home section" id="home">
-                <div class="home__container container grid" >
+                <div class="home__container container grid " >
                     <img src="./clogo.png" alt="" >
-                    <div class="home__data" style="margin-left:-150px;">
+                    <div class="home__data sm:ml-0 ml-[150px]">
                         <h1 class="home__title">A path to a  <br> better health</h1>
                         <p class="home__description">A platform gives healthcare providers the tools they need to manage medical inventory effectively,
                              ensuring that patients get the treatment they deserve, when they need it.</p>
@@ -115,8 +151,6 @@
                 </div>
 
             </section>
-
-            
 
             <!--=============== SERVICES ===============-->
             <section class="services section container" id="services">
@@ -220,5 +254,6 @@
 
         <!--=============== MAIN JS ===============-->
         <script src="landing.js"></script>
+        <script src="navbar.js"></script>
     </body>
 </html>
