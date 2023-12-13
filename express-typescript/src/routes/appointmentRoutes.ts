@@ -11,6 +11,7 @@ router.post('/', middleFunction, controller.create);
 router.get('/', middleFunction, controller.getAll);
 router.get('/get-history-doctor/:id', controller.getHistoryByDoctor);
 router.get('/history', middleFunction, controller.getHistoryAppointment);
+router.post('/getAppointmentSlots', middleFunction, controller.getSlot);
 router.patch('/', controller.updateStatus);
 router.delete('/:id', controller.deleteStatus);
 

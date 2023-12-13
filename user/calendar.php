@@ -24,6 +24,7 @@ if (logged_in()) {
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./calendar.css" />
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"> -->
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Calendar</title>
@@ -67,7 +68,10 @@ if (logged_in()) {
         <div class="event-date">12th december 2022</div>
       </div>
       <div style="max-height:150px;height:150px; width:100%">
-      <h1 style="text-align:center; font-size:1.5em;">Available Doctors</h1>
+      <div>
+        <h1 style="text-align:center; font-size:1.5em;margin-bottom:15px" class=" mb-5" id="slotContainer"></h1>
+        <h1 style="text-align:center; font-size:1.3em; margin-bottom:5px" class="mb-5">Available Doctors</h1>
+      </div>
 
         <div class="doctor_list_container" style="
         width:80%;

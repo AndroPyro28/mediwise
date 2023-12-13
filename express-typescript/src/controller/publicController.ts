@@ -76,7 +76,6 @@ class PublicController {
     
     const salt = await bcrypt.genSalt(10)
     const hashPw = await bcrypt.hash(password, salt);
-    console.log(req.body)
     const patient = await prisma.patient.create({
       data: {
         first_name,

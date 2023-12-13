@@ -63,7 +63,7 @@ if (logged_in()) {
     <div class="login-box">
       <div class="card ">
         <div class="card-body login-card-body"><img src="./public/images/bhaLogo.png" style="width:150px;height:150px; object-fit:cover">
-          <p class="login-box-msg" style="color:gray">Sign in</p>
+          <p class="login-box-msg" style="color:gray">Sign in as Doctor</p>
           <form action="loginprocess.php" method="post">
             <div class="input-group mb-3">
               <input type="text" name="username" class="form-control" placeholder="Username">
@@ -83,17 +83,12 @@ if (logged_in()) {
               </div>
             </div>
 
-            <div class="input-group mb-3" style="display:flex; justify-content:space-evenly;">
-              <div style="margin:5px;">
-                <label for="" style="color:black;" >Doctor</label>
-                <input name="role" id="role" type="radio"  value="Doctor" required/>
-              </div>
-              <div style="margin:5px;">
-                <label for="" style="color:black;" >Admin</label>
-                <input name="role" id="role" type="radio"  value="Admin" required/>
-              </div>
-            </div>
-            <a href="login-patient.php">login as patient</a>
+                <input name="role" id="role" type="hidden"  value="Doctor" />
+              
+                <div style="display:flex; flex-direction: column; font-size:0.9em; margin-bottom:20px; gap:10px;">
+                  <a href="login-patient.php" style="color:black; text-decoration:underline;">Login as patient? Click here</a>
+                  <a href="login-admin.php" style="color:black; text-decoration:underline;">Login as admin? Click here</a>
+                </div>
 
             <div class="row">
               <div class="col-8">

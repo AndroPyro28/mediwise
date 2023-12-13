@@ -85,6 +85,45 @@ class AppointmentController {
     }
   }
 
+  public getSlot = async (req: RequestInterface, res: Response) => {
+
+    try {
+      const prisma = new PrismaClient();
+      const { activeDay, month, year } = req.body;
+        const date = new Date();
+        date.setDate(activeDay + 1);
+        date.setFullYear(year);
+        date.setMonth(month);
+      const appointments = await prisma.appointment.findMany({
+        include: {
+          doctor:true,
+        },
+        where:  {
+          date: {
+            lte: new Date(
+              date.getFullYear(),
+              date.getMonth(),
+              date.getDate(),
+              0,
+              0,
+              0
+            ), // Start of the target day
+          },
+      }});
+      return res.status(200).json({
+        data: appointments,
+        success:true
+      })
+      
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({
+        message: 'internal server error',
+        success:false
+      })
+    }
+  }
+
   public getHistoryByDoctor = async (req: RequestInterface, res: Response) => {
     try {
       const prisma = new PrismaClient();

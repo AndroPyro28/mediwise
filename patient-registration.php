@@ -25,6 +25,7 @@ if (logged_in()) {
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
   <link rel="stylesheet" href="./user reg.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
 
 </head>
 
@@ -193,7 +194,7 @@ if (logged_in()) {
                   </div>
 
                   <div class="button-row d-flex mt-4">
-                    <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                    <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next" style="background:lightgreen;">Next</button>
                   </div>
                   <center> <a href="login-patient.php">
                       <p>Already have an account? Click here to login</p>
@@ -224,16 +225,18 @@ if (logged_in()) {
                   <div class="form-row mt-4">
                     <div class="col" style="flex flex-direction: column;">
                       <label for="">Password</label>
-                      <input class="multisteps-form__input form-control" type="password" placeholder="Password "
-                        required id="password" nam="password" />
-                      <span style="color:red;" class="password_error_message"></span>
+                      <div class="flex" style="display:flex; align-items:center; border:solid 1px #EAEAEA; border-radius:5px;">
+                      <input class="multisteps-form__input form-control" style="border: none;" type="password" placeholder="Password"required id="password" nam="password" />
+                      <i class="fa fa-eye" style="margin:10px; cursor:pointer;" aria-hidden="true" id="eye"></i>
+                    </div>
+                      <span style="color:red;"  class="password_error_message"></span>
                     </div>
                   </div>
                   <center>
                     <!-- <p>Please check your email to verify your account.</p></center> -->
                     <div class="button-row d-flex mt-4">
-                      <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
-                      <a href=""></a> <button class="btn btn-primary ml-auto" id="registerBtn">Done</button>
+                      <button class="btn btn-primary js-btn-prev" type="button" title="Prev" style="background:lightgreen;">Prev</button>
+                      <button class="btn btn-primary ml-auto" type="button" id="registerBtn" style="background:lightgreen;">Done</button>
                     </div>
                 </div>
               </div>
@@ -257,6 +260,32 @@ if (logged_in()) {
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
   <script src="./user reg.js"></script>
   <script src="./user/reverseAuth.js"></script>
+  <script>
+
+function show() {
+    var p = document.getElementById('password');
+    p.setAttribute('type', 'text');
+}
+
+function hide() {
+    var p = document.getElementById('password');
+    p.setAttribute('type', 'password');
+}
+
+
+let pwShown = false;
+
+document.getElementById("eye").addEventListener("click", function () {
+    if (!pwShown) {
+        pwShown = true;
+        show();
+    } else {
+        pwShown = false;
+        hide();
+    }
+});
+
+  </script>
 
   <script>
     const registerBtn = document.querySelector('#registerBtn');
@@ -436,12 +465,13 @@ if (logged_in()) {
         headers: { 'Content-type': 'application/json' }
       }) // getting the data from server
 
-      const data = await result.json();
-      if (result.status === 200 && data.success) {
+      const response = await result.json();
+      console.log(response)
+      if (!response.success) {
+        alert(response.message)
+      } else {
         alert("registration successful")
         window.location.assign('login-patient.php');
-      } else {
-        alert(data.message)
       }
     })
   </script>

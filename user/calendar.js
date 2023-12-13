@@ -67,7 +67,30 @@ async function getDoctorsByDate(activeDay, month, year) {
       }),
       headers: { "Content-type": "application/json", token },
     });
+
     const response = await result.json()
+
+    const result2 = await fetch("http://localhost:3001/appointments/getAppointmentSlots", {
+      // sending data to the server
+      method: "POST",
+      body: JSON.stringify({
+        activeDay, month, year
+      }),
+      headers: { "Content-type": "application/json", token },
+    });
+
+    const response2 = await result2.json()
+    const appointments = response2.data;
+    const slotContainer = document.querySelector('#slotContainer');
+
+    if(response.data.length > 0) {
+      slotContainer.textContent = `Available Slot: (${25 - appointments.length})`
+    } else {
+      slotContainer.textContent = `Available Slot: (0)`
+
+    }
+
+
     const selectElem = document.querySelector('.doctor_id');
     const displayDoctorsElem = document.querySelector('.doctor_list_container');
 
@@ -515,7 +538,6 @@ async function getEvents() {
     eventsArr = [];
     if (response.data.length > 0) {
       response.data.forEach((event) => {
-        console.log(event)
         const currentDay = new Date(event.date).getDate();
         const currentMonth = new Date(event.date).getMonth() + 1;
         const currentYear = new Date(event.date).getFullYear();
