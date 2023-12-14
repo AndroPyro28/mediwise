@@ -62,5 +62,5 @@ if ($result['OCRExitCode'] == 1) {
         // If ErrorMessage is not an array, display it as is
         echo 'OCR Errorb: ' . $result['ErrorMessage'];
     }
-}'OCR Error: ' . $result['ErrorMessage'];
+}
 ?>

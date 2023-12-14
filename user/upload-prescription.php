@@ -59,7 +59,7 @@
     <div class="bg-white p-6 rounded-md shadow-md">
         <!-- Modal content goes here -->
         <h2 class="text-2xl font-bold mb-4">Prescription Details</h2>
-        <div id="modalContent"></div>
+        <div id="modalContent" ></div>
         <button onclick="closeModal()" class="bg-gray-500 text-white py-2 px-4 rounded-md mt-4">Close</button>
     </div>
 </div>
