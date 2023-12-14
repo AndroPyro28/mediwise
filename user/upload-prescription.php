@@ -15,7 +15,7 @@
 
 <body class="bg-gray-100 p-8">
 
-    <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-md shadow-md">
     <a href="home.php" style=" margin: 5px; text-decoration:none; "> <i class="fa-solid fa-circle-chevron-left fa-2x" ></i></a>
 
         <h2 class="text-2xl font-bold mb-4">Prescription upload</h2>
@@ -45,6 +45,7 @@
                         <th class="flex-1">ID</th>
                         <th class="flex-1">Image Path</th>
                         <th class="flex-1">Created At</th>
+                        <th class="flex-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +53,52 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Add this HTML code after the prescription table -->
+<div id="prescriptionModal" class="hidden fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-md shadow-md">
+        <!-- Modal content goes here -->
+        <h2 class="text-2xl font-bold mb-4">Prescription Details</h2>
+        <div id="modalContent"></div>
+        <button onclick="closeModal()" class="bg-gray-500 text-white py-2 px-4 rounded-md mt-4">Close</button>
     </div>
+</div>
+
+<!-- Add this button inside each prescription row in the table -->
+
+
+    </div>
+
+    <script>
+
+function openModal(prescriptionId) {
+    // Make an AJAX request to fetch prescription details by ID
+    $.ajax({
+        url: 'get_prescription_details.php',
+        method: 'POST',
+        data: { prescription_id: prescriptionId },
+        success: function (response) {
+            // Display prescription details in the modal
+            $('#modalContent').html(response);
+            $('#prescriptionModal').removeClass('hidden');
+        },
+        error: function (error) {
+            console.error('Error fetching prescription details:', error);
+            // Display an error message
+            $('#modalContent').html('<p class="text-red-500">Error fetching prescription details.</p>');
+            $('#prescriptionModal').removeClass('hidden');
+        }
+    });
+}
+
+function closeModal() {
+    // Close the modal
+    $('#prescriptionModal').addClass('hidden');
+    // Clear modal content
+    $('#modalContent').html('');
+}
+
+    </script>
 
     <script>
 
@@ -141,10 +187,13 @@
                         $.each(response, function (index, prescription) {
                             const {date, time} = dateAndTimeParser(prescription.createdAt)
                             $('#prescriptionsContainer tbody').append(`
-                                <tr class="flex items-center w-full">
+                                <tr class="flex items-center w-full my-10">
                                     <td class="flex-1 text-center">  ${prescription.id}</td>
                                     <td class="flex-1 text-center"> <img src="${prescription.imagePath}"/> </td>
                                     <td class="flex-1 text-center">${date} <br/> ${time} </td>
+                                    <td class="flex-1 text-center">
+                                    <button onclick="openModal('${prescription.id}')" style="text-decoration:underline; color:blue;">View Details</button>
+                                </td>
                                 </tr>
                             `);
                         });
