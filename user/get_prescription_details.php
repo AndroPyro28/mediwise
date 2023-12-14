@@ -26,30 +26,68 @@ if (isset($_POST['prescription_id'])) {
 
         // Specify the path to the image file
         $imagePath = 'C:/xampp/htdocs/mediwise/public/uploads/' . basename($prescriptionDetails['image']);
-        // Specify the path to the Tesseract executable
-        $tesseract = new TesseractOCR($imagePath);
-        $tesseract->executable('C:\Program Files\Tesseract-OCR\tesseract.exe'); // Adjust the path accordingly
 
-        try {
-            // Perform OCR on the image
-            $text = $tesseract->run();
+        // OCR.space API key
+        $apiKey = '2227cfc83888957';
 
-            // Check if the text was successfully extracted
-            if (!empty($text)) {
-                echo ' <p style="margin:10px; max-height: 250px; max-width:400px; overflow:auto;"> <strong>Image: </strong> <img src="' . $prescriptionDetails['image'] . '" alt="Prescription Image"> </p> ';
-                echo '<p style="margin:10px; max-height: 100px; overflow:auto;"> <strong>Extracted text from image:</strong>  <pre style="font-size:13px; margin:10px;">' . $text . '</pre>  </p>';
-            } else {
-                echo '<p style="margin:10px; color: red;">Text extraction failed for the image.</p>';
-            }
-        } catch (Exception $e) {
-            // Handle Tesseract OCR errors
-            echo ' <p style="margin:10px; max-height: 250px; max-width:400px; overflow:auto;"> <strong>Image: </strong> <img src="' . $prescriptionDetails['image'] . '" alt="Prescription Image"> </p> ';
+        // OCR.space API endpoint URL
+        $apiUrl = 'https://api.ocr.space/parse/image';
 
-            echo '<p style="margin:10px; color: red;">Error extracting text</p>';
+        // Check if the image file exists
+        if (!file_exists($imagePath)) {
+            die('Error: Image file not found.');
         }
 
-        // Display createdAt information regardless of text extraction success/failure
-        echo '<p style="margin:10px;"> <strong>Created At:</strong> ' . date('Y-m-d g:i A', strtotime($prescriptionDetails['createdAt'])) . '</p>';
+        // Prepare the image data for sending
+        $imageData = base64_encode(file_get_contents($imagePath));
+
+        // Prepare the POST data
+        $postData = [
+            'apikey' => $apiKey,
+            'language' => 'eng', // Set the language code (e.g., 'eng' for English)
+            'base64Image' => 'data:image/jpeg;base64,' . $imageData,
+        ];
+
+        // Initialize cURL session
+        $ch = curl_init($apiUrl);
+
+        // Set cURL options
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Execute cURL session and get the response
+        $response = curl_exec($ch);
+
+        // Check for cURL errors
+        if (curl_errno($ch)) {
+            die('Error: cURL request failed - ' . curl_error($ch));
+        }
+
+        // Close cURL session
+        curl_close($ch);
+
+        // Decode the JSON response
+        $result = json_decode($response, true);
+
+        // Check if the API request was successful
+        if ($result['OCRExitCode'] == 1) {
+            // Display the extracted text
+            $text = $result['ParsedResults'][0]['ParsedText'];
+        } else {
+            // Display an error message
+            $text = 'OCR Error: ' . (is_array($result['ErrorMessage']) ? implode(', ', $result['ErrorMessage']) : $result['ErrorMessage']);
+        }
+
+        // Display the image and extracted text
+        echo '<p style="margin:10px; max-height: 250px; max-width:400px; overflow:auto;">';
+        echo '<strong>Image: </strong><img src="' . $prescriptionDetails['image'] . '" alt="Prescription Image">';
+        echo '</p>';
+        echo '<p style="margin:10px; max-height: 100px; overflow:auto;">';
+        echo '<strong>Extracted text from image:</strong> <pre style="font-size:13px; margin:10px;">' . $text . '</pre>';
+        echo '</p>';
+        echo '<p style="margin:10px;">';
+        echo '<strong>Created At:</strong> ' . date('Y-m-d g:i A', strtotime($prescriptionDetails['createdAt'])) . '</p>';
     } else {
         echo '<p class="text-red-500">Prescription not found.</p>';
     }
