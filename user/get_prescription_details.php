@@ -46,6 +46,7 @@ if (isset($_POST['prescription_id'])) {
             'apikey' => $apiKey,
             'language' => 'eng', // Set the language code (e.g., 'eng' for English)
             'base64Image' => 'data:image/jpeg;base64,' . $imageData,
+            'OCREngine' => 2, // Set OCR Engine to 2
         ];
 
         // Initialize cURL session
@@ -84,7 +85,7 @@ if (isset($_POST['prescription_id'])) {
         echo '<strong>Image: </strong><img src="' . $prescriptionDetails['image'] . '" alt="Prescription Image">';
         echo '</p>';
         echo '<p style="margin:10px; max-height: 100px; overflow:auto;">';
-        echo '<strong>Extracted text from image:</strong> <pre style="font-size:13px; margin:10px;">' . $text . '</pre>';
+        echo '<strong>Extracted text from image:</strong> <pre style="font-size:13px; margin:10px; max-height: 250px; max-width:400px; overflow:auto;">' . $text . '</pre>';
         echo '</p>';
         echo '<p style="margin:10px;">';
         echo '<strong>Created At:</strong> ' . date('Y-m-d g:i A', strtotime($prescriptionDetails['createdAt'])) . '</p>';
