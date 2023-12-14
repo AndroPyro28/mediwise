@@ -49,7 +49,7 @@ if (isset($_POST['prescription_id'])) {
         }
 
         // Display createdAt information regardless of text extraction success/failure
-        echo '<p style="margin:10px;"> <strong>Created At:</strong> ' . $prescriptionDetails['createdAt'] . '</p>';
+        echo '<p style="margin:10px;"> <strong>Created At:</strong> ' . date('Y-m-d g:i A', strtotime($prescriptionDetails['createdAt'])) . '</p>';
     } else {
         echo '<p class="text-red-500">Prescription not found.</p>';
     }
