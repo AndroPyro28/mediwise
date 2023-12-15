@@ -25,7 +25,7 @@ if (isset($_POST['prescription_id'])) {
         $prescriptionDetails = $result->fetch_assoc();
 
         // Specify the path to the image file
-        $imagePath = 'C:/xampp/htdocs/mediwise/public/uploads/' . basename($prescriptionDetails['image']);
+        $imagePath = '../public/uploads/' . basename($prescriptionDetails['image']);
 
         // OCR.space API key
         $apiKey = '2227cfc83888957';
