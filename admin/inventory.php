@@ -141,8 +141,8 @@ if (logged_in()) {
         <div>
             <button onclick="openModal()" class="bg-green-500 text-white rounded-md">Add Item</button>
             <?php if ($request_exists && $request_status === "PENDING"): ?>
-                <button onclick="cancelRequest()" data-request-id="<?php echo $request_id; ?>"
-                    class="bg-red-500 text-white rounded-md">Cancel Request</button>
+                <button onclick="openRequestcancelModal(<?php echo $request_id; ?>)" data-request-id="<?php echo $request_id; ?>"
+                    class="bg-blue-500 text-white rounded-md">View Request</button>
                 <!-- i dont have a view request modal create it for me -->
             <?php elseif ($request_exists && $request_status === "ONGOING"): ?>
                 <button onclick="openRequestDetailsModal(<?php echo $request_id; ?>)"
@@ -175,6 +175,28 @@ if (logged_in()) {
             <!-- Mark as Completed Button -->
             <button onclick="markRequestCompleted()" class="bg-blue-500 text-white rounded-md mt-4">
                 Mark as Completed
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="requestDetailsCancelModal" class="modal">
+    <div class="modal-content bg-white w-96 mx-auto mt-10 rounded shadow-lg p-4">
+        <span onclick="closeRequestDetailsCancelModal()" class="float-right cursor-pointer">&times;</span>
+        <h3 class="text-lg font-semibold mb-4">Request Details</h3>
+        <div id="requestDetailsContent" class="flex flex-col">
+            <strong>Request ID:</strong> <span id="requestIdCancel"></span><br>
+            
+            <!-- Request Status Badge -->
+            <strong>Request Status:</strong> 
+            <span id="requestStatusCancel" class="badge" style="width:fit-content;"></span><br>
+
+            <strong>Request details:</strong> 
+            <p id="requestDetailsCancel"></p><br>
+            
+            <!-- Mark as Completed Button -->
+            <button onclick="cancelRequest()" class="bg-red-500 text-white rounded-md mt-4">
+                Cancel
             </button>
         </div>
     </div>
@@ -282,6 +304,63 @@ if (logged_in()) {
         function closeModal() {
             document.getElementById("itemModal").style.display = "none";
         }
+    </script>
+    <script>
+          async function openRequestcancelModal(requestId) {
+    // Use Fetch API to send a request to get_request_details.php with the request ID
+    const result = await fetch('get_request_details.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'request_id=' + requestId,
+    });
+
+    const response = await result.json();
+    const { requestDetails, inventoryItems } = response;
+    requestDetails
+    // Populate the request details in the modal
+    document.getElementById('requestIdCancel').innerText = requestDetails.id;
+    document.getElementById('requestDetailsCancel').innerText = requestDetails.content;
+    document.getElementById('requestStatusCancel').innerText = requestDetails.request_status;
+    document.getElementById('requestStatusCancel').classList.add(requestDetails.request_status.toLowerCase());
+
+    // Show the modal
+    document.getElementById('requestDetailsCancelModal').style.display = 'flex';
+    }
+        function closeRequestDetailsCancelModal() {
+            document.getElementById('requestDetailsCancelModal').style.display = 'none';
+        }
+    </script>
+
+    <script>
+        async function markRequestCompleted() {
+    const requestId = document.getElementById('requestId').innerText;
+
+    // Use Fetch API to send a request to mark_completed.php with the request ID
+    const result = await fetch('mark_completed.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'request_id=' + requestId,
+    });
+
+    const data = await result.json();
+
+    if (result.status === 200 && data.status === 'success') {
+        // Handle success (e.g., show a success message, update UI)
+        alert('Request marked as completed successfully');
+        window.location.reload(); // You might want to update the UI dynamically instead of reloading the page
+    } else {
+        // Handle errors
+        alert('Failed to mark request as completed');
+    }
+
+    // Close the modal after marking as completed
+    closeRequestDetailsModal();
+}
+
     </script>
 
     <script>
