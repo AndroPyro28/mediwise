@@ -8,17 +8,22 @@ datasource db {
 }
 
 model admin {
-  admin_id       Int      @id @default(autoincrement())
-  username       String   @db.VarChar(250)
-  password       String   @db.VarChar(250)
-  first_name     String?  @db.VarChar(250)
-  middle_name    String?  @db.VarChar(250)
-  last_name      String?  @db.VarChar(250)
-  email_address  String?  @db.VarChar(250)
-  contact_number String?  @db.VarChar(250)
-  status         String   @default("ACTIVE") @db.VarChar(100)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now()) @updatedAt
+  admin_id       Int     @id @default(autoincrement())
+  username       String  @db.VarChar(250)
+  password       String  @db.VarChar(250)
+  first_name     String? @db.VarChar(250)
+  middle_name    String? @db.VarChar(250)
+  last_name      String? @db.VarChar(250)
+  email_address  String? @db.VarChar(250)
+  contact_number String? @db.VarChar(250)
+  status         String  @default("ACTIVE") @db.VarChar(100)
+
+  barangay_id Int?
+  barangay    barangay? @relation(fields: [barangay_id], references: [barangay_id])
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  requests  requests[]
 }
 
 model appointment {
@@ -48,6 +53,9 @@ model inventory {
   updatedAt        DateTime           @default(now()) @updatedAt
   barangay_id      Int?
   barangay         barangay?          @relation(fields: [barangay_id], references: [barangay_id])
+  request_id       Int?
+  isArchive        Boolean @default(false)
+  request          requests?          @relation(fields: [request_id], references: [id])
   appointment_item appointment_item[]
 }
 
@@ -63,20 +71,21 @@ model appointment_item {
 }
 
 model doctor {
-  doctor_id     Int             @id @default(autoincrement())
-  first_name    String          @db.VarChar(255)
-  middle_name   String?         @db.VarChar(255)
-  username      String          @db.VarChar(250)
-  password      String          @db.VarChar(250)
-  last_name     String          @db.VarChar(255)
-  suffix        String          @db.VarChar(255)
-  specialist    String          @db.VarChar(255)
-  id_number     String          @db.VarChar(255)
-  barangay      String          @db.VarChar(255)
-  appointments  appointment[]
-  status        String          @default("ACTIVE") @db.VarChar(100)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @default(now()) @updatedAt
+  doctor_id    Int           @id @default(autoincrement())
+  first_name   String        @db.VarChar(255)
+  middle_name  String?       @db.VarChar(255)
+  username     String        @db.VarChar(250)
+  password     String        @db.VarChar(250)
+  last_name    String        @db.VarChar(255)
+  suffix       String        @db.VarChar(255)
+  specialist   String        @db.VarChar(255)
+  id_number    String        @db.VarChar(255)
+  appointments appointment[]
+  status       String        @default("ACTIVE") @db.VarChar(100)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  barangay_id   Int?
+  barangay      barangay?       @relation(fields: [barangay_id], references: [barangay_id])
   work_schedule work_schedule[]
 }
 
@@ -107,11 +116,31 @@ model event {
   updatedAt   DateTime @default(now()) @updatedAt
 }
 
+model requests {
+  id             Int            @id @default(autoincrement())
+  content        String
+  request_status request_status @default(PENDING)
+  admin_id       Int
+  admin          admin          @relation(fields: [admin_id], references: [admin_id])
+  barangay_id    Int
+  barangay       barangay       @relation(fields: [barangay_id], references: [barangay_id])
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  inventory      inventory[]
+}
+
+enum request_status {
+  PENDING
+  CANCELLED
+  ONGOING
+  COMPLETED
+}
+
 model prescription {
-  prescription_id Int    @id @default(autoincrement())
-  image           String @db.LongText
-  patient_id Int?
-  barangay   patient? @relation(fields: [patient_id], references: [patient_id])
+  prescription_id Int      @id @default(autoincrement())
+  image           String   @db.LongText
+  patient_id      Int?
+  barangay        patient? @relation(fields: [patient_id], references: [patient_id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -149,4 +178,7 @@ model barangay {
   patients    patient[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @default(now()) @updatedAt
+  admin       admin[]
+  doctor      doctor[]
+  requests    requests[]
 }

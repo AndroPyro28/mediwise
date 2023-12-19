@@ -59,25 +59,24 @@ if (logged_in()) {
                 echo "<div id='successz' class = 'col-lg-12'>
                 <table class='table table-bordered table-striped dataTable dtr-inline ' id='table'>
                 <thead><tr>
-                <th nowrap>Barangay</th>
+                <th nowrap>License Number</th>
                 <th nowrap>First Name</th>
                 <th nowrap>Middle Name</th>
                 <th nowrap>Last Name</th>
                 <th nowrap>Suffix</th>
                 <th nowrap>Specialized</th>
-                <th nowrap>License Number</th>
                 <th nowrap>Update</th>
                 </tr></thead><tbody>";
 
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr role='row'>";
-                    echo "<td>" . $row['barangay'] . "</td>";
+                    echo "<td>" . $row['id_number'] . "</td>";
+
                     echo "<td>" . $row['first_name'] . "</td>";
                     echo "<td>" . $row['middle_name'] . "</td>";
                     echo "<td>" . $row['last_name'] . "</td>";
                     echo "<td>" . $row['suffix'] . "</td>";
                     echo "<td>" . $row['specialist'] . "</td>";
-                    echo "<td>" . $row['id_number'] . "</td>";
                     echo ' <td><a name="view" value="Update" id="' . $row["doctor_id"] . '" class="btn btn-success btn-block update_account" style="color:white;"><i class="fas fa-edit" style="color:white;"></i></a></td>';
                 }
                 ?>

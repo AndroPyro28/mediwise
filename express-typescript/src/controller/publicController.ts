@@ -73,6 +73,16 @@ class PublicController {
     if(!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)) {
       return res.status(400).json({message:"invalid password pattern", success: false});
     }
+
+    const patientData = await prisma.patient.findFirst({
+      where: {
+        username,
+      },
+    });
+
+    if(patientData && patientData.username == username) {
+      return res.status(400).json({message:"This username is already taken", success: false});
+    }
     
     const salt = await bcrypt.genSalt(10)
     const hashPw = await bcrypt.hash(password, salt);
@@ -123,6 +133,8 @@ class PublicController {
     if (!patient) {
       return res.status(400).json({message:"Invalid Credentials", success: false});
     }
+
+   
 
     const isMatch = await bcrypt.compare(password, patient.password);
 
