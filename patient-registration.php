@@ -106,8 +106,8 @@ if (logged_in()) {
 
                   <div class="form-row mt-4">
                     <div class="col-12 col-sm-6" style="flex flex-direction: column;">
-                      <label for=""> Birthdate</label>
-                      <input class="multisteps-form__input form-control" type="date" placeholder="Birthdate" required
+                      <label for=""> Birthdate <span class="age_message"></span></label>
+                      <input class="multisteps-form__input form-control"  type="date" placeholder="Birthdate" required
                         id="birthdate" />
                       <span style="color:red;" class="birthdate_error_message"></span>
 
@@ -304,6 +304,34 @@ document.getElementById("eye").addEventListener("click", function () {
     const gender_node = document.querySelector('#gender')
     const street_node = document.querySelector('#street')
     const homeNo_node = document.querySelector('#homeNo')
+
+    const maxYear = new Date().getFullYear() - 18
+    const maxMonth = new Date().getMonth() + 1 < 10 ? `0-${new Date().getMonth() + 1}` : new Date().getMonth() + 1
+    const maxDate = new Date().getDate() < 10 ? `0-${new Date().getDate()}` : new Date().getDate()
+    birthdate_node.setAttribute('max', `${maxYear}-${maxMonth}-${maxDate}`)
+    function calculateAge(birthdate) {
+      const today = new Date();
+      const birthDate = new Date(birthdate);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      return age;
+    }
+
+    birthdate_node.addEventListener('input', (e) => {
+      const age = calculateAge(e.target.value);
+      const ageMessage = document.querySelector('.age_message');
+
+      if (age < 0) {
+        ageMessage.textContent = 'Invalid birthdate';
+      } else {
+        ageMessage.textContent = `(${age} yrs old)`;
+      }
+    });
 
     first_name_node.addEventListener('input', (e) => {
       let pattern = /^[A-Za-z\s]*$/;
